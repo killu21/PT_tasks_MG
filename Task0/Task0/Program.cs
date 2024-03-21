@@ -1,4 +1,5 @@
-﻿namespace Calculator
+﻿
+namespace Calculator
 {
     public class SumCalculator
     {
