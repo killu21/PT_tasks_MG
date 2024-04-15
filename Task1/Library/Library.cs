@@ -70,10 +70,15 @@ namespace Task1
         {
             return rentals;
         }
+        
+        public Dictionary<string, Book> Catalog { get; } = new Dictionary<string, Book>();
+        
+        public DataContext DataContext { get; set; }
+        public object UserBooks { get; set; }
 
         private Dictionary<string, Book> catalog = new Dictionary<string, Book>();
         private List<User> users = new List<User>();
-        private Dictionary<string, List<Book>> userBooks = new Dictionary<string, List<Book>>();
+        public Dictionary<string, List<Book>> userBooks = new Dictionary<string, List<Book>>();
         private List<Rental> rentals = new List<Rental>();
     }
 }
