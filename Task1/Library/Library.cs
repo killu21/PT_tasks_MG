@@ -16,7 +16,12 @@ namespace Library
             this.initialFunds = initialFunds;
             this.rentals = new List<Rental>();
         }
-
+        
+        public double GetInitialFunds()
+        {
+            return initialFunds;
+        }
+        
         public void UpdateLibraryState(State state)
         {
             this.catalog = new Catalog();
@@ -68,6 +73,11 @@ namespace Library
             users.Remove(user);
         }
 
+        public void SetFunds(double funds)
+        {
+            initialFunds = funds;
+        }
+        
         public void AddBook(Book book)
         {
             catalog.AddBook(book);
@@ -93,12 +103,9 @@ namespace Library
 
         public void RentBook(Book book, User user, DateTime rentalDate, DateTime dueDate)
         {
-            // Create a new rental transaction
-            // Rental rental = new Rental(GetNextRentalId(), book, user, rentalDate, dueDate);
-            // rentals.Add(rental);
+            Rental rental = new Rental(Rental.GetNextRentalId(), book, user, rentalDate, dueDate);
+            rentals.Add(rental);
         }
-
-        
 
         public void ReturnBook(Book book)
         {

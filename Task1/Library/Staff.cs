@@ -33,5 +33,21 @@ namespace Library
         public void SetSalary(int value) {
             this.salary = value;
         }
+        
+        public void WithdrawMonthlyIncome(Library library)
+        {
+            double initialFunds = library.GetFunds();
+            if (initialFunds >= this.salary)
+            {
+                initialFunds -= this.salary;
+                library.SetFunds(initialFunds);
+            }
+            else
+            {
+                throw new InvalidOperationException("Insufficient funds in the library to withdraw monthly income.");
+            }
+        }
+        
+        
     }
 }

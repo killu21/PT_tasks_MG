@@ -4,7 +4,8 @@ namespace Library
 {
     public class Rental
     {
-        public int RentalId { get; private set; }
+        public static int RentalId { get; private set; }
+        private static int nextRentalId = 1;
         public Book RentedBook { get; private set; }
         public User RentedBy { get; private set; }
         public DateTime RentalDate { get; private set; }
@@ -21,9 +22,9 @@ namespace Library
             IsReturned = false;
         }
         
-        public int GetNextRentalId()
+        public static int GetNextRentalId()
         {
-            return RentalId;
+            return nextRentalId++;
         }
 
         public void ReturnBook()
