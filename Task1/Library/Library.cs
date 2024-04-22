@@ -1,23 +1,51 @@
-using System;
 using System.Collections.Generic;
 
-namespace Task1
+namespace Library
 {
     public class Library
     {
-        public void AddBook(Book book)
+        private Catalog catalog;
+        private List<User> users;
+        private double initialFunds;
+        private List<Rental> rentals;
+
+        public Library(double initialFunds)
         {
-            catalog[book.Name] = book;
+            this.catalog = new Catalog();
+            this.users = new List<User>();
+            this.initialFunds = initialFunds;
+            this.rentals = new List<Rental>();
         }
 
-        public void AddUser(User user)
+        public void UpdateLibraryState(State state)
         {
-            users.Add(user);
+            this.catalog = new Catalog();
+            foreach (var book in state.GetCurrentCatalog().GetBooks())
+            {
+                this.catalog.AddBook(new Book(book.GetId(), book.GetTitle(), book.GetAuthor(), book.GetTerm()));
+            }
+
+            this.users = new List<User>();
+            foreach (var user in state.GetCurrentUsers())
+            {
+                if (user is Staff)
+                {
+                    Staff staff = (Staff)user;
+                    this.users.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId(), staff.GetSalary()));
+                }
+                else if (user is Customer)
+                {
+                    Customer customer = (Customer)user;
+                    this.users.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
+                }
+            }
+
+            this.initialFunds = state.GetCurrentFunds();
         }
 
-        public User GetUser(string userName)
+        public Catalog GetCatalog()
         {
-            return users.Find(user => user.GetName() == userName);
+            return catalog;
         }
 
         public List<User> GetUsers()
@@ -25,60 +53,64 @@ namespace Task1
             return users;
         }
 
-        public void CheckoutBook(User user, string bookName)
+        public double GetFunds()
         {
-            if (catalog.ContainsKey(bookName))
-            {
-                Book book = catalog[bookName];
-                userBooks[user.GetName()].Add(book);
-                catalog.Remove(bookName);
-                rentals.Add(new Rental(user, book, DateTime.Now));
-            }
-            else
-            {
-                Console.WriteLine("Book not found.");
-            }
+            return initialFunds;
         }
 
-        public void ReturnBook(User user, string bookName)
+        public void AddUser(User user)
         {
-            if (userBooks.ContainsKey(user.GetName()))
+            users.Add(user);
+        }
+
+        public void DeleteUser(User user)
+        {
+            users.Remove(user);
+        }
+
+        public void AddBook(Book book)
+        {
+            catalog.AddBook(book);
+        }
+
+        public void DeleteBook(Book book)
+        {
+            catalog.RemoveBook(book);
+        }
+
+
+        public bool IsBookRented(Book book)
+        {
+            foreach (Rental rental in rentals)
             {
-                List<Book> userBooksList = userBooks[user.GetName()];
-                for (int i = 0; i < userBooksList.Count; i++)
+                if (rental.RentedBook == book && !rental.IsReturned)
                 {
-                    if (userBooksList[i].Name == bookName)
-                    {
-                        catalog[bookName] = userBooksList[i];
-                        userBooksList.RemoveAt(i);
-                        foreach (Rental rental in rentals)
-                        {
-                            if (rental.User == user && rental.Book == userBooksList[i])
-                            {
-                                rentals.Remove(rental);
-                                break;
-                            }
-                        }
-                        return;
-                    }
+                    return true;
                 }
             }
-            Console.WriteLine("Book not found.");
+            return false;
         }
 
-        public List<Rental> GetRentals()
+        public void RentBook(Book book, User user, DateTime rentalDate, DateTime dueDate)
         {
-            return rentals;
+            // Create a new rental transaction
+            // Rental rental = new Rental(GetNextRentalId(), book, user, rentalDate, dueDate);
+            // rentals.Add(rental);
         }
-        
-        public Dictionary<string, Book> Catalog { get; } = new Dictionary<string, Book>();
-        
-        public DataContext DataContext { get; set; }
-        public object UserBooks { get; set; }
 
-        private Dictionary<string, Book> catalog = new Dictionary<string, Book>();
-        private List<User> users = new List<User>();
-        public Dictionary<string, List<Book>> userBooks = new Dictionary<string, List<Book>>();
-        private List<Rental> rentals = new List<Rental>();
+        
+
+        public void ReturnBook(Book book)
+        {
+            foreach (Rental rental in rentals)
+            {
+                if (rental.RentedBook == book && !rental.IsReturned)
+                {
+                    rental.ReturnBook(); 
+                    return;
+                }
+            }
+            throw new InvalidOperationException("The specified book is not currently rented.");
+        }
     }
 }
