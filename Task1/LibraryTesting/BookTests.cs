@@ -1,7 +1,3 @@
-using NUnit.Framework;
-using System;
-using Library;
-
 namespace LibraryTests
 {
     [TestFixture]

@@ -4,7 +4,7 @@ namespace Library
 {
     public class Rental
     {
-        public static int RentalId { get; private set; }
+        public int RentalId { get; private set; }
         private static int nextRentalId = 1;
         public Book RentedBook { get; private set; }
         public User RentedBy { get; private set; }
