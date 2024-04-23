@@ -8,28 +8,28 @@ namespace Library
 {
     public class Customer : User
     {
-        private int customerId;
-        private int balance;
+        private int _customerId;
+        private int _balance;
 
         public Customer(string surname, string name, int phone, int customerId, int balance)
             : base(surname, name, phone)
         {
-            this.customerId = customerId;
-            this.balance = balance;
+            this._customerId = customerId;
+            this._balance = balance;
         }
 
         public int GetCustomerId()
         {
-            return this.customerId;
+            return this._customerId;
         }
 
         public void SetCustomerId(int value)
         {
-            this.customerId = value;
+            this._customerId = value;
         }
         
-        public int GetBalance() {return this.balance;}
+        public int GetBalance() {return this._balance;}
 
-        public void SetBalance(int value) { this.balance = value; }
+        public void SetBalance(int value) { this._balance = value; }
     }
 }

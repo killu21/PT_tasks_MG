@@ -4,88 +4,88 @@ namespace Library
 {
     public class Library
     {
-        private Catalog catalog;
-        private List<User> users;
-        private double initialFunds;
-        private List<Rental> rentals;
+        private Catalog _catalog;
+        private List<User> _users;
+        private double _initialFunds;
+        private readonly List<Rental> rentals;
 
         public Library(double initialFunds)
         {
-            this.catalog = new Catalog();
-            this.users = new List<User>();
-            this.initialFunds = initialFunds;
+            this._catalog = new Catalog();
+            this._users = new List<User>();
+            this._initialFunds = initialFunds;
             this.rentals = new List<Rental>();
         }
         
         public double GetInitialFunds()
         {
-            return initialFunds;
+            return _initialFunds;
         }
         
         public void UpdateLibraryState(State state)
         {
-            this.catalog = new Catalog();
+            this._catalog = new Catalog();
             foreach (var book in state.GetCurrentCatalog().GetBooks())
             {
-                this.catalog.AddBook(new Book(book.GetId(), book.GetTitle(), book.GetAuthor(), book.GetTerm()));
+                this._catalog.AddBook(new Book(book.GetId(), book.GetTitle(), book.GetAuthor(), book.GetTerm()));
             }
 
-            this.users = new List<User>();
+            this._users = new List<User>();
             foreach (var user in state.GetCurrentUsers())
             {
                 if (user is Staff)
                 {
                     Staff staff = (Staff)user;
-                    this.users.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId(), staff.GetSalary()));
+                    this._users.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId(), staff.GetSalary()));
                 }
                 else if (user is Customer)
                 {
                     Customer customer = (Customer)user;
-                    this.users.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
+                    this._users.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
                 }
             }
 
-            this.initialFunds = state.GetCurrentFunds();
+            this._initialFunds = state.GetCurrentFunds();
         }
 
         public Catalog GetCatalog()
         {
-            return catalog;
+            return _catalog;
         }
 
         public List<User> GetUsers()
         {
-            return users;
+            return _users;
         }
 
         public double GetFunds()
         {
-            return initialFunds;
+            return _initialFunds;
         }
 
         public void AddUser(User user)
         {
-            users.Add(user);
+            _users.Add(user);
         }
 
         public void DeleteUser(User user)
         {
-            users.Remove(user);
+            _users.Remove(user);
         }
 
         public void SetFunds(double funds)
         {
-            initialFunds = funds;
+            _initialFunds = funds;
         }
         
         public void AddBook(Book book)
         {
-            catalog.AddBook(book);
+            _catalog.AddBook(book);
         }
 
         public void DeleteBook(Book book)
         {
-            catalog.RemoveBook(book);
+            _catalog.RemoveBook(book);
         }
 
 

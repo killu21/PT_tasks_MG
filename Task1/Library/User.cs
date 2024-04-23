@@ -7,45 +7,45 @@ namespace Library
 {
     public abstract class User
     {
-        private string surname;
-        private string name;
-        private int phone;
+        private string _surname;
+        private string _name;
+        private int _phone;
 
         public User(string surname, string name, int phone)
         {
-            this.surname = surname;
-            this.name = name;
-            this.phone = phone;
+            this._surname = surname;
+            this._name = name;
+            this._phone = phone;
         }
 
         public string GetSurname()
         {
-            return this.surname;
+            return this._surname;
         }
 
         public void SetSurname(string value)
         {
-            this.surname = value;
+            this._surname = value;
         }
 
         public string GetName()
         {
-            return this.name;
+            return this._name;
         }
 
         public void SetName(string value)
         {
-            this.name = value;
+            this._name = value;
         }
 
         public int GetPhone()
         {
-            return this.phone;
+            return this._phone;
         }
 
         public void SetPhone(int value)
         {
-            this.phone = value;
+            this._phone = value;
         }
     }
 }

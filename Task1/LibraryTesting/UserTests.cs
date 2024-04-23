@@ -3,19 +3,19 @@ namespace LibraryTests
     [TestFixture]
     public class UserTests
     {
-        private User user;
+        private User _user;
 
         [SetUp]
         public void SetUp()
         {
-            user = new Customer("Doe", "John", 1234567890, 1, 100);
+            _user = new Customer("Doe", "John", 1234567890, 1, 100);
         }
 
         [Test]
         public void GetSurname_ShouldReturnCorrectSurname()
         {
             // Act
-            string surname = user.GetSurname();
+            string surname = _user.GetSurname();
 
             // Assert
             Assert.AreEqual("Doe", surname);
@@ -28,17 +28,17 @@ namespace LibraryTests
             string newSurname = "Smith";
 
             // Act
-            user.SetSurname(newSurname);
+            _user.SetSurname(newSurname);
 
             // Assert
-            Assert.AreEqual(newSurname, user.GetSurname());
+            Assert.AreEqual(newSurname, _user.GetSurname());
         }
 
         [Test]
         public void GetName_ShouldReturnCorrectName()
         {
             // Act
-            string name = user.GetName();
+            string name = _user.GetName();
 
             // Assert
             Assert.AreEqual("John", name);
@@ -51,17 +51,17 @@ namespace LibraryTests
             string newName = "Jane";
 
             // Act
-            user.SetName(newName);
+            _user.SetName(newName);
 
             // Assert
-            Assert.AreEqual(newName, user.GetName());
+            Assert.AreEqual(newName, _user.GetName());
         }
 
         [Test]
         public void GetPhone_ShouldReturnCorrectPhone()
         {
             // Act
-            int phone = user.GetPhone();
+            int phone = _user.GetPhone();
 
             // Assert
             Assert.AreEqual(1234567890, phone);
@@ -74,10 +74,10 @@ namespace LibraryTests
             int newPhone = 987654321;
 
             // Act
-            user.SetPhone(newPhone);
+            _user.SetPhone(newPhone);
 
             // Assert
-            Assert.AreEqual(newPhone, user.GetPhone());
+            Assert.AreEqual(newPhone, _user.GetPhone());
         }
     }
 }

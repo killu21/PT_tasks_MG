@@ -3,21 +3,21 @@ namespace LibraryTests
     [TestFixture]
     public class StaffTests
     {
-        private Staff staff;
-        private Library.Library library;
+        private Staff _staff;
+        private Library.Library _library;
 
         [SetUp]
         public void SetUp()
         {
-            staff = new Staff("Doe", "John", 1234567890, 1, 1000);
-            library = new Library.Library(2000);
+            _staff = new Staff("Doe", "John", 1234567890, 1, 1000);
+            _library = new Library.Library(2000);
         }
 
         [Test]
         public void GetStaffId_ShouldReturnCorrectId()
         {
             // Act
-            int id = staff.GetStaffId();
+            int id = _staff.GetStaffId();
 
             // Assert
             Assert.AreEqual(1, id);
@@ -30,17 +30,17 @@ namespace LibraryTests
             int newId = 2;
 
             // Act
-            staff.SetStaffId(newId);
+            _staff.SetStaffId(newId);
 
             // Assert
-            Assert.AreEqual(newId, staff.GetStaffId());
+            Assert.AreEqual(newId, _staff.GetStaffId());
         }
 
         [Test]
         public void GetSalary_ShouldReturnCorrectSalary()
         {
             // Act
-            int salary = staff.GetSalary();
+            int salary = _staff.GetSalary();
 
             // Assert
             Assert.AreEqual(1000, salary);
@@ -53,33 +53,33 @@ namespace LibraryTests
             int newSalary = 2000;
 
             // Act
-            staff.SetSalary(newSalary);
+            _staff.SetSalary(newSalary);
 
             // Assert
-            Assert.AreEqual(newSalary, staff.GetSalary());
+            Assert.AreEqual(newSalary, _staff.GetSalary());
         }
 
         [Test]
         public void WithdrawMonthlyIncome_WhenFundsAreSufficient_ShouldDecreaseLibraryFunds()
         {
             // Arrange
-            double initialFunds = library.GetFunds();
+            double initialFunds = _library.GetFunds();
 
             // Act
-            staff.WithdrawMonthlyIncome(library);
+            _staff.WithdrawMonthlyIncome(_library);
 
             // Assert
-            Assert.AreEqual(initialFunds - staff.GetSalary(), library.GetFunds());
+            Assert.AreEqual(initialFunds - _staff.GetSalary(), _library.GetFunds());
         }
 
         [Test]
         public void WithdrawMonthlyIncome_WhenFundsAreInsufficient_ShouldThrowInvalidOperationException()
         {
             // Arrange
-            library.SetFunds(staff.GetSalary() - 1);
+            _library.SetFunds(_staff.GetSalary() - 1);
 
             // Act & Assert
-            Assert.Throws<InvalidOperationException>(() => staff.WithdrawMonthlyIncome(library));
+            Assert.Throws<InvalidOperationException>(() => _staff.WithdrawMonthlyIncome(_library));
         }
     }
 }

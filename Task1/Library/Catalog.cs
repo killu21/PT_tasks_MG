@@ -4,26 +4,26 @@ namespace Library
 {
     public class Catalog
     {
-        private Dictionary<int, Book> books;
+        private Dictionary<int, Book> _books;
 
         public Catalog(Dictionary<int, Book> initialBooks = null)
         {
-            books = initialBooks ?? new Dictionary<int, Book>();
+            _books = initialBooks ?? new Dictionary<int, Book>();
         }
 
         public void AddBook(Book book)
         {
-            books.Add(book.GetId(), book);
+            _books.Add(book.GetId(), book);
         }
 
         public void RemoveBook(Book book)
         {
-            books.Remove(book.GetId());
+            _books.Remove(book.GetId());
         }
 
         public List<Book> GetBooks()
         {
-            return new List<Book>(books.Values);
+            return new List<Book>(_books.Values);
         }
     }
 }

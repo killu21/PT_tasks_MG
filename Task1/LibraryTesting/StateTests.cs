@@ -3,20 +3,20 @@ namespace LibraryTests
     [TestFixture]
     public class StateTests
     {
-        private State state;
-        private Library.Library library;
-        private User user;
-        private Book book;
+        private State _state;
+        private Library.Library _library;
+        private User _user;
+        private Book _book;
 
         [SetUp]
         public void SetUp()
         {
-            library = new Library.Library(2000);
-            user = new Customer("Doe", "John", 1234567890, 1, 100);
-            book = new Book(1, "Book1", "Author1", 30);
-            library.AddUser(user);
-            library.AddBook(book);
-            state = new State(library);
+            _library = new Library.Library(2000);
+            _user = new Customer("Doe", "John", 1234567890, 1, 100);
+            _book = new Book(1, "Book1", "Author1", 30);
+            _library.AddUser(_user);
+            _library.AddBook(_book);
+            _state = new State(_library);
         }
         
         [Test]
@@ -28,10 +28,10 @@ namespace LibraryTests
             newCatalog.AddBook(newBook);
 
             // Act
-            state.SetCurrentCatalog(newCatalog);
+            _state.SetCurrentCatalog(newCatalog);
 
             // Assert
-            Assert.IsTrue(state.GetCurrentCatalog().GetBooks().Contains(newBook));
+            Assert.IsTrue(_state.GetCurrentCatalog().GetBooks().Contains(newBook));
         }
         
         [Test]
@@ -43,17 +43,17 @@ namespace LibraryTests
             newUsers.Add(newUser);
 
             // Act
-            state.SetCurrentUsers(newUsers);
+            _state.SetCurrentUsers(newUsers);
 
             // Assert
-            Assert.IsTrue(state.GetCurrentUsers().Contains(newUser));
+            Assert.IsTrue(_state.GetCurrentUsers().Contains(newUser));
         }
 
         [Test]
         public void GetCurrentFunds_ShouldReturnCurrentFunds()
         {
             // Act
-            double funds = state.GetCurrentFunds();
+            double funds = _state.GetCurrentFunds();
 
             // Assert
             Assert.AreEqual(2000, funds);
@@ -63,10 +63,10 @@ namespace LibraryTests
         public void SetCurrentFunds_ShouldSetCurrentFunds()
         {
             // Act
-            state.SetCurrentFunds(3000);
+            _state.SetCurrentFunds(3000);
 
             // Assert
-            Assert.AreEqual(3000, state.GetCurrentFunds());
+            Assert.AreEqual(3000, _state.GetCurrentFunds());
         }
     }
 }

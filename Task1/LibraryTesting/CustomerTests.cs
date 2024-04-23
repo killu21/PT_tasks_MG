@@ -3,19 +3,19 @@ namespace LibraryTests
     [TestFixture]
     public class CustomerTests
     {
-        private Customer customer;
+        private Customer _customer;
 
         [SetUp]
         public void SetUp()
         {
-            customer = new Customer("Doe", "John", 1234567890, 1, 100);
+            _customer = new Customer("Doe", "John", 1234567890, 1, 100);
         }
 
         [Test]
         public void GetCustomerId_ShouldReturnCorrectId()
         {
             // Act
-            int id = customer.GetCustomerId();
+            int id = _customer.GetCustomerId();
 
             // Assert
             Assert.AreEqual(1, id);
@@ -28,17 +28,17 @@ namespace LibraryTests
             int newId = 2;
 
             // Act
-            customer.SetCustomerId(newId);
+            _customer.SetCustomerId(newId);
 
             // Assert
-            Assert.AreEqual(newId, customer.GetCustomerId());
+            Assert.AreEqual(newId, _customer.GetCustomerId());
         }
 
         [Test]
         public void GetBalance_ShouldReturnCorrectBalance()
         {
             // Act
-            int balance = customer.GetBalance();
+            int balance = _customer.GetBalance();
 
             // Assert
             Assert.AreEqual(100, balance);
@@ -51,10 +51,10 @@ namespace LibraryTests
             int newBalance = 200;
 
             // Act
-            customer.SetBalance(newBalance);
+            _customer.SetBalance(newBalance);
 
             // Assert
-            Assert.AreEqual(newBalance, customer.GetBalance());
+            Assert.AreEqual(newBalance, _customer.GetBalance());
         }
     }
 }

@@ -4,37 +4,37 @@ namespace Library
 {
     public class Book
     {
-        private readonly int bookId;
-        private readonly string title;
-        private readonly string author;
-        private int term;
+        private readonly int _bookId;
+        private readonly string _title;
+        private readonly string _author;
+        private int _term;
 
         public Book(int bookId, string title, string author, int term)
         {
-            this.bookId = bookId;
-            this.title = title;
-            this.author = author;
-            this.term = term;
+            this._bookId = bookId;
+            this._title = title;
+            this._author = author;
+            this._term = term;
         }
 
         public int GetId()
         {
-            return bookId;
+            return _bookId;
         }
 
         public string GetTitle()
         {
-            return title;
+            return _title;
         }
 
         public string GetAuthor()
         {
-            return author;
+            return _author;
         }
 
         public int GetTerm()
         {
-            return term;
+            return _term;
         }
 
         public void SetTerm(int newTerm)
@@ -43,7 +43,7 @@ namespace Library
             {
                 throw new ArgumentException("Term cannot be zero or negative.");
             }
-            term = newTerm;
+            _term = newTerm;
         }
     }
 }

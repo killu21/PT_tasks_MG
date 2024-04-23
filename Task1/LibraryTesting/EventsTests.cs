@@ -8,24 +8,24 @@ namespace LibraryTests
     [TestFixture]
     public class EventsTests
     {
-        private Events events;
-        private Library.Library library;
-        private User user;
-        private Book book1;
-        private Book book2;
+        private Events _events;
+        private Library.Library _library;
+        private User _user;
+        private Book _book1;
+        private Book _book2;
 
         [SetUp]
         public void SetUp()
         {
-            events = new Events();
-            user = new Customer("Doe", "John", 1234567890, 1, 100);
-            book1 = new Book(1, "Book1", "Author1", 30);
-            book2 = new Book(2, "Book2", "Author2", 30);
-            library = new Library.Library(2000);
+            _events = new Events();
+            _user = new Customer("Doe", "John", 1234567890, 1, 100);
+            _book1 = new Book(1, "Book1", "Author1", 30);
+            _book2 = new Book(2, "Book2", "Author2", 30);
+            _library = new Library.Library(2000);
 
             // Add books to the library after creating the Library object
-            library.AddBook(book1);
-            library.AddBook(book2);
+            _library.AddBook(_book1);
+            _library.AddBook(_book2);
         }
 
         [Test]
@@ -36,10 +36,10 @@ namespace LibraryTests
             Book[] books = new Book[] { book3 };
 
             // Act
-            events.AddBooksToCatalog(books, library);
+            _events.AddBooksToCatalog(books, _library);
 
             // Assert
-            Assert.IsTrue(library.GetCatalog().GetBooks().Contains(book3));
+            Assert.IsTrue(_library.GetCatalog().GetBooks().Contains(book3));
         }
 
         [Test]
@@ -48,13 +48,13 @@ namespace LibraryTests
             // Arrange
             Book book3 = new Book(3, "Book3", "Author3", 30);
             Book[] books = new Book[] { book3 };
-            events.AddBooksToCatalog(books, library);
+            _events.AddBooksToCatalog(books, _library);
 
             // Act
-            events.RemoveBooksFromCatalog(books, library);
+            _events.RemoveBooksFromCatalog(books, _library);
 
             // Assert
-            Assert.IsFalse(library.GetCatalog().GetBooks().Contains(book3));
+            Assert.IsFalse(_library.GetCatalog().GetBooks().Contains(book3));
         }
     }
 }

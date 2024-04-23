@@ -4,40 +4,40 @@ namespace Library
 {
     public class State
     {
-        private Catalog currentCatalog;
-        private List<User> currentUsers;
-        private double currentFunds;
+        private Catalog _currentCatalog;
+        private List<User> _currentUsers;
+        private double _currentFunds;
 
         public State(Library library)
         {
-            this.currentCatalog = new Catalog();
+            this._currentCatalog = new Catalog();
             foreach (var book in library.GetCatalog().GetBooks())
             {
-                this.currentCatalog.AddBook(new Book(book.GetId(), book.GetTitle(), book.GetAuthor(), book.GetTerm()));
+                this._currentCatalog.AddBook(new Book(book.GetId(), book.GetTitle(), book.GetAuthor(), book.GetTerm()));
             }
 
-            this.currentUsers = new List<User>();
+            this._currentUsers = new List<User>();
             foreach (var user in library.GetUsers())
             {
                 if (user is Customer)
                 {
                     Customer customer = (Customer)user;
-                    this.currentUsers.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
+                    this._currentUsers.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
                 }
                 else if (user is Staff)
                 {
                     Staff staff = (Staff)user;
-                    this.currentUsers.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId(), staff.GetSalary()));
+                    this._currentUsers.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId(), staff.GetSalary()));
                 }
             }
 
-            this.currentFunds = library.GetFunds();
+            this._currentFunds = library.GetFunds();
         }
 
         public Catalog GetCurrentCatalog()
         {
             Dictionary<int, Book> bookDictionary = new Dictionary<int, Book>();
-            foreach (var book in currentCatalog.GetBooks())
+            foreach (var book in _currentCatalog.GetBooks())
             {
                 bookDictionary.Add(book.GetId(), book);
             }
@@ -46,27 +46,27 @@ namespace Library
 
         public void SetCurrentCatalog(Catalog catalog)
         {
-            this.currentCatalog = catalog;
+            this._currentCatalog = catalog;
         }
 
         public List<User> GetCurrentUsers()
         {
-            return new List<User>(currentUsers);
+            return new List<User>(_currentUsers);
         }
 
         public void SetCurrentUsers(List<User> users)
         {
-            this.currentUsers = users;
+            this._currentUsers = users;
         }
 
         public double GetCurrentFunds()
         {
-            return currentFunds;
+            return _currentFunds;
         }
 
         public void SetCurrentFunds(double value)
         {
-            this.currentFunds = value;
+            this._currentFunds = value;
         }
     }
 }

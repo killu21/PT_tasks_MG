@@ -3,62 +3,62 @@ namespace LibraryTests
     [TestFixture]
     public class LibraryTests
     {
-        private Library.Library library;
-        private User user;
-        private Book book;
+        private Library.Library _library;
+        private User _user;
+        private Book _book;
 
         [SetUp]
         public void SetUp()
         {
-            library = new Library.Library(2000);
-            user = new Customer("Doe", "John", 1234567890, 1, 100);
-            book = new Book(1, "Book1", "Author1", 30);
+            _library = new Library.Library(2000);
+            _user = new Customer("Doe", "John", 1234567890, 1, 100);
+            _book = new Book(1, "Book1", "Author1", 30);
         }
 
         [Test]
         public void AddUser_WithValidUser_ShouldAddUser()
         {
             // Act
-            library.AddUser(user);
+            _library.AddUser(_user);
 
             // Assert
-            Assert.IsTrue(library.GetUsers().Contains(user));
+            Assert.IsTrue(_library.GetUsers().Contains(_user));
         }
 
         [Test]
         public void DeleteUser_WithValidUser_ShouldDeleteUser()
         {
             // Arrange
-            library.AddUser(user);
+            _library.AddUser(_user);
 
             // Act
-            library.DeleteUser(user);
+            _library.DeleteUser(_user);
 
             // Assert
-            Assert.IsFalse(library.GetUsers().Contains(user));
+            Assert.IsFalse(_library.GetUsers().Contains(_user));
         }
 
         [Test]
         public void AddBook_WithValidBook_ShouldAddBook()
         {
             // Act
-            library.AddBook(book);
+            _library.AddBook(_book);
 
             // Assert
-            Assert.IsTrue(library.GetCatalog().GetBooks().Contains(book));
+            Assert.IsTrue(_library.GetCatalog().GetBooks().Contains(_book));
         }
 
         [Test]
         public void DeleteBook_WithValidBook_ShouldDeleteBook()
         {
             // Arrange
-            library.AddBook(book);
+            _library.AddBook(_book);
 
             // Act
-            library.DeleteBook(book);
+            _library.DeleteBook(_book);
 
             // Assert
-            Assert.IsFalse(library.GetCatalog().GetBooks().Contains(book));
+            Assert.IsFalse(_library.GetCatalog().GetBooks().Contains(_book));
         }
 
         [Test]
@@ -67,14 +67,14 @@ namespace LibraryTests
             // Arrange
             DateTime rentalDate = DateTime.Now;
             DateTime dueDate = DateTime.Now.AddDays(30);
-            library.AddBook(book);
-            library.AddUser(user);
+            _library.AddBook(_book);
+            _library.AddUser(_user);
 
             // Act
-            library.RentBook(book, user, rentalDate, dueDate);
+            _library.RentBook(_book, _user, rentalDate, dueDate);
 
             // Assert
-            Assert.IsTrue(library.IsBookRented(book));
+            Assert.IsTrue(_library.IsBookRented(_book));
         }
 
         [Test]
@@ -83,15 +83,15 @@ namespace LibraryTests
             // Arrange
             DateTime rentalDate = DateTime.Now;
             DateTime dueDate = DateTime.Now.AddDays(30);
-            library.AddBook(book);
-            library.AddUser(user);
-            library.RentBook(book, user, rentalDate, dueDate);
+            _library.AddBook(_book);
+            _library.AddUser(_user);
+            _library.RentBook(_book, _user, rentalDate, dueDate);
 
             // Act
-            library.ReturnBook(book);
+            _library.ReturnBook(_book);
 
             // Assert
-            Assert.IsFalse(library.IsBookRented(book));
+            Assert.IsFalse(_library.IsBookRented(_book));
         }
     }
 }

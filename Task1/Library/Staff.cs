@@ -8,38 +8,38 @@ namespace Library
 {
     public class Staff : User
     {
-        private int staffId;
-        private int salary;
+        private int _staffId;
+        private int _salary;
 
         public Staff(string surname, string name, int phone, int staffId, int salary)
             : base(surname, name, phone)
         {
-            this.staffId = staffId;
-            this.salary = salary;
+            this._staffId = staffId;
+            this._salary = salary;
         }
 
         public int GetStaffId()
         {
-            return this.staffId;
+            return this._staffId;
         }
 
         public void SetStaffId(int value)
         {
-            this.staffId = value;
+            this._staffId = value;
         }
 
-        public int GetSalary() { return this.salary; }
+        public int GetSalary() { return this._salary; }
 
         public void SetSalary(int value) {
-            this.salary = value;
+            this._salary = value;
         }
         
         public void WithdrawMonthlyIncome(Library library)
         {
             double initialFunds = library.GetFunds();
-            if (initialFunds >= this.salary)
+            if (initialFunds >= this._salary)
             {
-                initialFunds -= this.salary;
+                initialFunds -= this._salary;
                 library.SetFunds(initialFunds);
             }
             else
