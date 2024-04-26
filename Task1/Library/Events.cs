@@ -1,63 +1,61 @@
 using System;
 
+namespace Library;
 
-namespace Library
+public class Events
 {
-    public class Events
+    public void CheckOutBooks(Book[] books, User user, DateTime rentalDate, DateTime dueDate, Library library)
     {
-        public void CheckOutBooks(Book[] books, User user, DateTime rentalDate, DateTime dueDate, Library library)
+        foreach (var book in books)
         {
-            foreach (var book in books)
+            if (!library.GetCatalog().GetBooks().Contains(book))
             {
-                if (!library.GetCatalog().GetBooks().Contains(book))
-                {
-                    throw new InvalidOperationException($"Book '{book.GetTitle()}' is not available in the library.");
-                }
-            }
-
-            if (!library.GetUsers().Contains(user))
-            {
-                throw new InvalidOperationException($"User '{user.GetName()}' is not registered with the library.");
-            }
-
-            foreach (var book in books)
-            {
-                if (library.IsBookRented(book))
-                {
-                    throw new InvalidOperationException($"Book '{book.GetTitle()}' is already rented.");
-                }
-            }
-
-            // Rent the books
-            foreach (var book in books)
-            {
-                library.RentBook(book, user, rentalDate, dueDate);
+                throw new InvalidOperationException($"Book '{book.GetTitle()}' is not available in the library.");
             }
         }
 
-        public void ReturnBooks(Book[] books, Library library)
+        if (!library.GetUsers().Contains(user))
         {
-            // Return the books
-            foreach (var book in books)
+            throw new InvalidOperationException($"User '{user.GetName()}' is not registered with the library.");
+        }
+
+        foreach (var book in books)
+        {
+            if (library.IsBookRented(book))
             {
-                library.ReturnBook(book);
+                throw new InvalidOperationException($"Book '{book.GetTitle()}' is already rented.");
             }
         }
 
-        public void AddBooksToCatalog(Book[] books, Library library)
+        // Rent the books
+        foreach (var book in books)
         {
-            foreach (var book in books)
-            {
-                library.AddBook(book);
-            }
+            library.RentBook(book, user, rentalDate, dueDate);
         }
+    }
 
-        public void RemoveBooksFromCatalog(Book[] books, Library library)
+    public void ReturnBooks(Book[] books, Library library)
+    {
+        // Return the books
+        foreach (var book in books)
         {
-            foreach (var book in books)
-            {
-                library.DeleteBook(book);
-            }
+            library.ReturnBook(book);
+        }
+    }
+
+    public void AddBooksToCatalog(Book[] books, Library library)
+    {
+        foreach (var book in books)
+        {
+            library.AddBook(book);
+        }
+    }
+
+    public void RemoveBooksFromCatalog(Book[] books, Library library)
+    {
+        foreach (var book in books)
+        {
+            library.DeleteBook(book);
         }
     }
 }
