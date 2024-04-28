@@ -21,7 +21,7 @@ namespace LibraryTests
             _user = new Customer("Doe", "John", 1234567890, 1, 100);
             _book1 = new Book(1, "Book1", "Author1", 30);
             _book2 = new Book(2, "Book2", "Author2", 30);
-            _library = new Library.Library(2000);
+            _library = new Library.Library();
 
             // Add books to the library after creating the Library object
             _library.AddBook(_book1);

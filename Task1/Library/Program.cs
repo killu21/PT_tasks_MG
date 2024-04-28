@@ -7,18 +7,15 @@ class Program
     public static void Main(string[] args)
     {
         // Create a library
-        Library library = new Library(10000);
+        Library library = new Library();
 
         // Create some users
-        Staff staff1 = new Staff("John", "Doe", 1234, 3000, 4000);
+        Staff staff1 = new Staff("John", "Doe", 1234, 3000);
         Customer customer1 = new Customer("Alice", "Smith", 5678, 100, 200);
         // Add users to the library
         library.AddUser(staff1);
         library.AddUser(customer1);
-
-        // Withdraw monthly income for staff1
-        staff1.WithdrawMonthlyIncome(library);
-
+        
         // Create some books
         Book book1 = new Book(1, "The Great Gatsby", "F. Scott Fitzgerald", 40);
         Book book2 = new Book(2, "To Kill a Mockingbird", "Harper Lee", 60);
@@ -53,8 +50,5 @@ class Program
         {
             Console.WriteLine($"- {user.GetName()}");
         }
-        Console.WriteLine($"Funds: ${library.GetFunds()}");
-
-        // Add more operations as needed
     }
 }

@@ -17,25 +17,13 @@ public class Book
         _term = term;
     }
 
-    public int GetId()
-    {
-        return _bookId;
-    }
+    public int GetId() { return _bookId; }
 
-    public string GetTitle()
-    {
-        return _title;
-    }
+    public string GetTitle() { return _title; }
 
-    public string GetAuthor()
-    {
-        return _author;
-    }
+    public string GetAuthor() { return _author; }
 
-    public int GetTerm()
-    {
-        return _term;
-    }
+    public int GetTerm() { return _term; }
 
     public void SetTerm(int newTerm)
     {

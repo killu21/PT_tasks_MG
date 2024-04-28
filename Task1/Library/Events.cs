@@ -4,7 +4,7 @@ namespace Library;
 
 public class Events
 {
-    public void CheckOutBooks(Book[] books, User user, DateTime rentalDate, DateTime dueDate, Library library)
+    public void CheckOutBooks(Book[] books, Customer customer, DateTime rentalDate, DateTime dueDate, Library library)
     {
         foreach (var book in books)
         {
@@ -14,9 +14,9 @@ public class Events
             }
         }
 
-        if (!library.GetUsers().Contains(user))
+        if (!library.GetUsers().Contains(customer))
         {
-            throw new InvalidOperationException($"User '{user.GetName()}' is not registered with the library.");
+            throw new InvalidOperationException($"User '{customer.GetName()}' is not registered with the library.");
         }
 
         foreach (var book in books)
@@ -30,7 +30,7 @@ public class Events
         // Rent the books
         foreach (var book in books)
         {
-            library.RentBook(book, user, rentalDate, dueDate);
+            library.RentBook(book, customer, rentalDate, dueDate);
         }
     }
 

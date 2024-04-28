@@ -4,7 +4,7 @@ namespace Library;
 
 public class Catalog
 {
-    private Dictionary<int, Book> _books;
+    private readonly Dictionary<int, Book> _books;
 
     public Catalog(Dictionary<int, Book> initialBooks = null)
     {

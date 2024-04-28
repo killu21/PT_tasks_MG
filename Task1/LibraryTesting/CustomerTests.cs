@@ -1,60 +1,59 @@
-namespace LibraryTests
+namespace LibraryTests;
+
+[TestFixture]
+public class CustomerTests
 {
-    [TestFixture]
-    public class CustomerTests
+    private Customer _customer;
+
+    [SetUp]
+    public void SetUp()
     {
-        private Customer _customer;
+        _customer = new Customer("Doe", "John", 1234567890, 1, 100);
+    }
 
-        [SetUp]
-        public void SetUp()
-        {
-            _customer = new Customer("Doe", "John", 1234567890, 1, 100);
-        }
+    [Test]
+    public void GetCustomerId_ShouldReturnCorrectId()
+    {
+        // Act
+        var id = _customer.GetCustomerId();
 
-        [Test]
-        public void GetCustomerId_ShouldReturnCorrectId()
-        {
-            // Act
-            int id = _customer.GetCustomerId();
+        // Assert
+        Assert.That(id, Is.EqualTo(1));
+    }
 
-            // Assert
-            Assert.AreEqual(1, id);
-        }
+    [Test]
+    public void SetCustomerId_ShouldUpdateId()
+    {
+        // Arrange
+        const int newId = 2;
 
-        [Test]
-        public void SetCustomerId_ShouldUpdateId()
-        {
-            // Arrange
-            int newId = 2;
+        // Act
+        _customer.SetCustomerId(newId);
 
-            // Act
-            _customer.SetCustomerId(newId);
+        // Assert
+        Assert.That(_customer.GetCustomerId(), Is.EqualTo(newId));
+    }
 
-            // Assert
-            Assert.AreEqual(newId, _customer.GetCustomerId());
-        }
+    [Test]
+    public void GetBalance_ShouldReturnCorrectBalance()
+    {
+        // Act
+        var balance = _customer.GetBalance();
 
-        [Test]
-        public void GetBalance_ShouldReturnCorrectBalance()
-        {
-            // Act
-            int balance = _customer.GetBalance();
+        // Assert
+        Assert.That(balance, Is.EqualTo(100));
+    }
 
-            // Assert
-            Assert.AreEqual(100, balance);
-        }
+    [Test]
+    public void SetBalance_ShouldUpdateBalance()
+    {
+        // Arrange
+        const int newBalance = 200;
 
-        [Test]
-        public void SetBalance_ShouldUpdateBalance()
-        {
-            // Arrange
-            int newBalance = 200;
+        // Act
+        _customer.SetBalance(newBalance);
 
-            // Act
-            _customer.SetBalance(newBalance);
-
-            // Assert
-            Assert.AreEqual(newBalance, _customer.GetBalance());
-        }
+        // Assert
+        Assert.That(_customer.GetBalance(), Is.EqualTo(newBalance));
     }
 }

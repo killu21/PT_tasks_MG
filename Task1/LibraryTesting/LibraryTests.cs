@@ -4,14 +4,14 @@ namespace LibraryTests
     public class LibraryTests
     {
         private Library.Library _library;
-        private User _user;
+        private Customer _customer;
         private Book _book;
 
         [SetUp]
         public void SetUp()
         {
-            _library = new Library.Library(2000);
-            _user = new Customer("Doe", "John", 1234567890, 1, 100);
+            _library = new Library.Library();
+            _customer = new Customer("Doe", "John", 1234567890, 1, 100);
             _book = new Book(1, "Book1", "Author1", 30);
         }
 
@@ -19,23 +19,23 @@ namespace LibraryTests
         public void AddUser_WithValidUser_ShouldAddUser()
         {
             // Act
-            _library.AddUser(_user);
+            _library.AddUser(_customer);
 
             // Assert
-            Assert.IsTrue(_library.GetUsers().Contains(_user));
+            Assert.That(_library.GetUsers(), Does.Contain(_customer));
         }
 
         [Test]
         public void DeleteUser_WithValidUser_ShouldDeleteUser()
         {
             // Arrange
-            _library.AddUser(_user);
+            _library.AddUser(_customer);
 
             // Act
-            _library.DeleteUser(_user);
+            _library.DeleteUser(_customer);
 
             // Assert
-            Assert.IsFalse(_library.GetUsers().Contains(_user));
+            Assert.That(_library.GetUsers(), Does.Not.Contain(_customer));
         }
 
         [Test]
@@ -45,7 +45,7 @@ namespace LibraryTests
             _library.AddBook(_book);
 
             // Assert
-            Assert.IsTrue(_library.GetCatalog().GetBooks().Contains(_book));
+            Assert.That(_library.GetCatalog().GetBooks(), Does.Contain(_book));
         }
 
         [Test]
@@ -58,23 +58,23 @@ namespace LibraryTests
             _library.DeleteBook(_book);
 
             // Assert
-            Assert.IsFalse(_library.GetCatalog().GetBooks().Contains(_book));
+            Assert.That(_library.GetCatalog().GetBooks(), Does.Not.Contain(_book));
         }
 
         [Test]
-        public void RentBook_WithValidBookAndUser_ShouldRentBook()
+        public void RentBook_ShouldRentBook()
         {
             // Arrange
-            DateTime rentalDate = DateTime.Now;
-            DateTime dueDate = DateTime.Now.AddDays(30);
+            var rentalDate = DateTime.Now;
+            var dueDate = DateTime.Now.AddDays(30);
             _library.AddBook(_book);
-            _library.AddUser(_user);
+            _library.AddUser(_customer);
 
             // Act
-            _library.RentBook(_book, _user, rentalDate, dueDate);
+            _library.RentBook(_book, _customer, rentalDate, dueDate);
 
             // Assert
-            Assert.IsTrue(_library.IsBookRented(_book));
+            Assert.That(_library.IsBookRented(_book), Is.True);
         }
 
         [Test]
@@ -84,14 +84,14 @@ namespace LibraryTests
             DateTime rentalDate = DateTime.Now;
             DateTime dueDate = DateTime.Now.AddDays(30);
             _library.AddBook(_book);
-            _library.AddUser(_user);
-            _library.RentBook(_book, _user, rentalDate, dueDate);
+            _library.AddUser(_customer);
+            _library.RentBook(_book, _customer, rentalDate, dueDate);
 
             // Act
             _library.ReturnBook(_book);
 
             // Assert
-            Assert.IsFalse(_library.IsBookRented(_book));
+            Assert.That(_library.IsBookRented(_book), Is.False);
         }
     }
 }

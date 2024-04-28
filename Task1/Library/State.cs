@@ -6,32 +6,29 @@ public class State
 {
     private Catalog _currentCatalog;
     private List<User> _currentUsers;
-    private double _currentFunds;
 
     public State(Library library)
     {
-        this._currentCatalog = new Catalog();
+        _currentCatalog = new Catalog();
         foreach (var book in library.GetCatalog().GetBooks())
-        {
-            this._currentCatalog.AddBook(new Book(book.GetId(), book.GetTitle(), book.GetAuthor(), book.GetTerm()));
+        { 
+            _currentCatalog.AddBook(new Book(book.GetId(), book.GetTitle(), book.GetAuthor(), book.GetTerm()));
         }
 
-        this._currentUsers = new List<User>();
+        _currentUsers = new List<User>();
         foreach (var user in library.GetUsers())
         {
             if (user is Customer)
             {
                 Customer customer = (Customer)user;
-                this._currentUsers.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
+                _currentUsers.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
             }
             else if (user is Staff)
             {
                 Staff staff = (Staff)user;
-                this._currentUsers.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId(), staff.GetSalary()));
+                _currentUsers.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId()));
             }
         }
-
-        this._currentFunds = library.GetFunds();
     }
 
     public Catalog GetCurrentCatalog()
@@ -46,7 +43,7 @@ public class State
 
     public void SetCurrentCatalog(Catalog catalog)
     {
-        this._currentCatalog = catalog;
+        _currentCatalog = catalog;
     }
 
     public List<User> GetCurrentUsers()
@@ -56,16 +53,6 @@ public class State
 
     public void SetCurrentUsers(List<User> users)
     {
-        this._currentUsers = users;
-    }
-
-    public double GetCurrentFunds()
-    {
-        return _currentFunds;
-    }
-
-    public void SetCurrentFunds(double value)
-    {
-        this._currentFunds = value;
+        _currentUsers = users;
     }
 }
