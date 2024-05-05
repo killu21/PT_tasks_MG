@@ -6,12 +6,14 @@ public class CatalogTests
     private Catalog _catalog;
     private Book _book1;
     private Book _book2;
+    private const bool Available = true;
+    // private const bool NotAvailable = false;
 
     [SetUp]
     public void SetUp()
     {
-        _book1 = new Book(1, "Book1", "Author1", 30);
-        _book2 = new Book(2, "Book2", "Author2", 30);
+        _book1 = new Book("Title1", "Author1", Available);
+        _book2 = new Book("Title2", "Author2", Available);
         var initialBooks = new Dictionary<int, Book>
         {
             { _book1.GetId(), _book1 },
@@ -21,16 +23,20 @@ public class CatalogTests
     }
 
     [Test]
-    public void AddBook_WithValidBook_ShouldAddBookToCatalog()
+    public void AddBook_WithValidBook_ShouldAddBookToCatalogProperly()
     {
         // Arrange
-        var book3 = new Book(3, "Book3", "Author3", 30);
+        var book3 = new Book("Title3", "Author3", Available);
+        const int expectedIdCount = 3;
 
         // Act
         _catalog.AddBook(book3);
-
-        // Assert
-        Assert.That(_catalog.GetBooks(), Does.Contain(book3));
+        Assert.Multiple(() =>
+        {
+            // Assert
+            Assert.That(book3.GetId(), Is.EqualTo(expectedIdCount));
+            Assert.That(_catalog.GetBooks(), Does.Contain(book3));
+        });
     }
 
     [Test]

@@ -1,14 +1,12 @@
-using System.Collections.Generic;
-
 namespace Library;
 
 public class Catalog
 {
     private readonly Dictionary<int, Book> _books;
 
-    public Catalog(Dictionary<int, Book> initialBooks = null)
+    public Catalog(Dictionary<int, Book> initialBooks = null)   // ?
     {
-        _books = initialBooks ?? new Dictionary<int, Book>();
+        _books = initialBooks ?? new Dictionary<int, Book>();   // ?
     }
 
     public void AddBook(Book book)

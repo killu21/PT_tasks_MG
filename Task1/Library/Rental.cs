@@ -1,49 +1,57 @@
-using System;
+// Possibility of moving rented books from Catalog to a separate class (RentedCatalog)
 
 namespace Library;
 
 public class Rental
 {
-    public int RentalId { get; private set; }
     private static int _nextRentalId = 1;
-    public Book RentedBook { get; private set; }
-    public Customer RentedBy { get; private set; }
-    public DateTime RentalDate { get; private set; }
-    public DateTime DueDate { get; private set; }
-    public bool IsReturned { get; private set; }
+    private int _rentalId;           // { get; private set; }
+    private Book _rentedBook;        // { get; private set; }
+    private Customer _rentedBy;      // { get; private set; }
+    private DateTime _rentalDate;    // { get; private set; }
+    private DateTime _dueDate;       // { get; private set; }
 
-    public Rental(int rentalId, Book rentedBook, Customer rentedBy, DateTime rentalDate, DateTime dueDate)
+    public Rental(Book rentedBook, Customer rentedBy, DateTime dueDate)
     {
-        RentalId = rentalId;
-        RentedBook = rentedBook;
-        RentedBy = rentedBy;
-        RentalDate = rentalDate;
-        DueDate = dueDate;
-        IsReturned = false;
+        _rentalId = _nextRentalId;
+        _rentedBook = rentedBook;
+        _rentedBy = rentedBy;
+        _rentalDate = DateTime.Now;
+        _dueDate = dueDate;
+        _nextRentalId++;
+        rentedBook.SetIsAvailable(false);
     }
-              
-    public static int GetNextRentalId()
-    {
-        return _nextRentalId++;
-    }
-
+    
+    public static int GetNextRentalId() { return _nextRentalId++; }
+    
+    public int GetRentalId() { return _rentalId; }
+    
+    public Book GetRentedBook() { return _rentedBook; }
+    
+    public Customer GetRentedBy() { return _rentedBy; }
+    
+    public DateTime GetRentalDate() { return _rentalDate; }
+    
+    public DateTime GetDueDate() { return _dueDate; }
+    
     public void ReturnBook()
     {
-        if (IsReturned)
+        if (_rentedBook.GetIsAvailable())
         {
             throw new InvalidOperationException("The book has already been returned.");
         }
-        IsReturned = true;
+        _rentedBook.SetIsAvailable(true);
     }
 
     public bool IsOverdue()
     {
-        return DateTime.Now > DueDate && !IsReturned;
+        return DateTime.Now > _dueDate && !_rentedBook.GetIsAvailable();
     }
 
     public override string ToString()
     {
-        string rentalStatus = IsReturned ? "Returned" : "On Loan";
-        return $"Rental ID: {RentalId}\nBook Title: {RentedBook.GetTitle()}\nRented By: {RentedBy.GetName()}\nRental Status: {rentalStatus}\n";
+        var rentalStatus = _rentedBook.GetIsAvailable() ? "Returned" : "On Loan";
+        return $"Rental ID: {_rentalId}\nBook Title: {_rentedBook.GetTitle()}\nRented By: {_rentedBy.GetName()}\n" +
+               $"Rental Status: {rentalStatus}\nRental Date: {_rentalDate}\nDue Date: {_dueDate}";
     }
 }

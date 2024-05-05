@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Library;
 
 public class Staff : User
 {
+    private static int _nextStaffId = 1;
     private int _staffId;
 
-    public Staff(string surname, string name, int phone, int staffId)
+    public Staff(string surname, string name, int phone)
         : base(surname, name, phone)
     {
-        _staffId = staffId;
+        _staffId = _nextStaffId;
+        _nextStaffId++;
     }
 
     public int GetStaffId() { return _staffId; }

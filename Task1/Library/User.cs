@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Customer and Staff could have different ids c1, c2, s1, s2, etc.
 
 namespace Library;
 

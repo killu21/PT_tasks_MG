@@ -9,7 +9,7 @@ public class StaffTests
     [SetUp]
     public void SetUp()
     {
-        _staff = new Staff("Doe", "John", 1234567890, 1);
+        _staff = new Staff("Doe", "John", 1234567890);
         _library = new Library.Library();
     }
 
@@ -17,7 +17,7 @@ public class StaffTests
     public void GetStaffId_ShouldReturnCorrectId()
     {
         // Act
-        int id = _staff.GetStaffId();
+        var id = _staff.GetStaffId();
 
         // Assert
         Assert.That(id, Is.EqualTo(1));

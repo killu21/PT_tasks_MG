@@ -1,21 +1,17 @@
-using System.Collections.Generic;
-
 namespace Library;
 
 public class State
 {
     private Catalog _currentCatalog;
     private List<User> _currentUsers;
+    private Library _currentLibrary;
 
     public State(Library library)
     {
-        _currentCatalog = new Catalog();
-        foreach (var book in library.GetCatalog().GetBooks())
-        { 
-            _currentCatalog.AddBook(new Book(book.GetId(), book.GetTitle(), book.GetAuthor(), book.GetTerm()));
-        }
-
+        _currentLibrary = library;
+        _currentCatalog = library.GetCatalog();
         _currentUsers = new List<User>();
+        
         foreach (var user in library.GetUsers())
         {
             if (user is Customer)

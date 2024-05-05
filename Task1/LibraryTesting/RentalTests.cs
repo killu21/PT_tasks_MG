@@ -10,63 +10,62 @@ namespace LibraryTests
         [SetUp]
         public void SetUp()
         {
-            _book = new Book(1, "Book1", "Author1", 30);
-            _customer = new Customer("Doe", "John", 1234567890, 1, 100);
-            _rental = new Rental(Rental.GetNextRentalId(), _book, _customer, DateTime.Now, DateTime.Now.AddDays(30));
+            _book = new Book("Title1", "Author1", true);
+            _customer = new Customer("Doe", "John", 1234567890, 100);
+            _rental = new Rental(_book, _customer, DateTime.Now.AddDays(30));
         }
 
         [Test]
-        public void ReturnBook_WhenBookIsNotReturned_ShouldSetIsReturnedToTrue()
+        public void Rental_InitializesCorrectly()
         {
-            // Act
-            _rental.ReturnBook();
-
-            // Assert
-            Assert.That(_rental.IsReturned);
+            Assert.Multiple(() =>
+            {
+                Assert.That(_rental.GetRentedBook(), Is.EqualTo(_book));
+                Assert.That(_rental.GetRentedBy(), Is.EqualTo(_customer));
+                Assert.That(_book.GetIsAvailable(), Is.False);
+            });
         }
 
         [Test]
-        public void ReturnBook_WhenBookIsAlreadyReturned_ShouldThrowInvalidOperationException()
+        public void ReturnBook_SetsBookAvailabilityToTrue()
         {
-            // Arrange
             _rental.ReturnBook();
+            Assert.That(_book.GetIsAvailable());
+        }
 
-            // Act & Assert
+        [Test]
+        public void ReturnBook_ThrowsExceptionWhenBookAlreadyReturned()
+        {
+            _rental.ReturnBook();
             Assert.Throws<InvalidOperationException>(() => _rental.ReturnBook());
         }
 
         [Test]
-        public void IsOverdue_WhenDueDateIsInTheFuture_ShouldReturnFalse()
+        public void IsOverdue_ReturnsTrueWhenDueDateIsPast()
         {
-            // Act
-            var isOverdue = _rental.IsOverdue();
-
-            // Assert
-            Assert.That(isOverdue, Is.False);
+            var overdueRental = new Rental(_book, _customer, DateTime.Now.AddDays(-1));
+            Assert.That(overdueRental.IsOverdue());
         }
-
+        
         [Test]
-        public void IsOverdue_WhenDueDateIsInThePastAndBookIsNotReturned_ShouldReturnTrue()
+        public void IsOverdue_ReturnsFalseWhenDueDateIsFuture()
         {
-            // Arrange
-            _rental = new Rental(Rental.GetNextRentalId(), _book, _customer, DateTime.Now.AddDays(-31), DateTime.Now.AddDays(-1));
-
-            // Act
-            bool isOverdue = _rental.IsOverdue();
-
-            // Assert
-            Assert.That(isOverdue);
+            Assert.That(_rental.IsOverdue(), Is.False);
         }
 
         [Test]
         public void ToString_ShouldReturnCorrectString()
         {
             // Act
-            string rentalString = _rental.ToString();
+            var rentalString = _rental.ToString();
 
             // Assert
-            Assert.That(rentalString, Is.EqualTo($"Rental ID: {_rental.RentalId}\nBook Title: {_book.GetTitle()}\n" +
-                                                 $"Rented By: {_customer.GetName()}\nRental Status: On Loan\n"));
+            Assert.That(rentalString, Is.EqualTo(
+                $"Rental ID: {_rental.GetRentalId()}\n" + $"Book Title: {_book.GetTitle()}\n" + 
+                $"Rented By: {_customer.GetName()}\nRental Status: On Loan\n" +
+                $"Rental Date: {_rental.GetRentalDate()}\n" +
+                $"Due Date: {_rental.GetDueDate()}\"")
+            );
         }
     }
 }

@@ -8,17 +8,20 @@ public class CustomerTests
     [SetUp]
     public void SetUp()
     {
-        _customer = new Customer("Doe", "John", 1234567890, 1, 100);
+        _customer = new Customer("Doe", "John", 1234567890, 100);
     }
 
     [Test]
-    public void GetCustomerId_ShouldReturnCorrectId()
+    public void SetCustomerId_ShouldUpdateNextCustomerId()
     {
+        // Arrange
+        Customer.SetNextCustomerId(10);
+
         // Act
-        var id = _customer.GetCustomerId();
+        Customer customer = new Customer("Down", "Jane", 1234567890, 1);
 
         // Assert
-        Assert.That(id, Is.EqualTo(1));
+        Assert.That(customer.GetCustomerId(), Is.EqualTo(10));
     }
 
     [Test]
