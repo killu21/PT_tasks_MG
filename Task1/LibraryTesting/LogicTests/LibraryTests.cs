@@ -1,4 +1,4 @@
-namespace LibraryTests
+namespace LibraryTests.LogicTests
 {
     [TestFixture]
     public class LibraryTests
@@ -11,8 +11,8 @@ namespace LibraryTests
         public void SetUp()
         {
             _library = new Library.Library();
-            _customer = new Customer("Doe", "John", 1234567890, 1, 100);
-            _book = new Book(1, "Book1", "Author1", 30);
+            _customer = new Customer("Doe", "John", 1234567890,  100);
+            _book = new Book( "Book1", "Author1", true);
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace LibraryTests
         public void AddBook_WithValidBook_ShouldAddBook()
         {
             // Act
-            _library.AddBook(_book);
+            _library.AddBookToCatalog(_book);
 
             // Assert
             Assert.That(_library.GetCatalog().GetBooks(), Does.Contain(_book));
@@ -52,10 +52,10 @@ namespace LibraryTests
         public void DeleteBook_WithValidBook_ShouldDeleteBook()
         {
             // Arrange
-            _library.AddBook(_book);
+            _library.AddBookToCatalog(_book);
 
             // Act
-            _library.DeleteBook(_book);
+            _library.DeleteBookFromCatalog(_book);
 
             // Assert
             Assert.That(_library.GetCatalog().GetBooks(), Does.Not.Contain(_book));
@@ -67,11 +67,11 @@ namespace LibraryTests
             // Arrange
             var rentalDate = DateTime.Now;
             var dueDate = DateTime.Now.AddDays(30);
-            _library.AddBook(_book);
+            _library.AddBookToCatalog(_book);
             _library.AddUser(_customer);
 
             // Act
-            _library.RentBook(_book, _customer, rentalDate, dueDate);
+            _library.RentBook(_book, _customer, dueDate);
 
             // Assert
             Assert.That(_library.IsBookRented(_book), Is.True);
@@ -83,9 +83,9 @@ namespace LibraryTests
             // Arrange
             DateTime rentalDate = DateTime.Now;
             DateTime dueDate = DateTime.Now.AddDays(30);
-            _library.AddBook(_book);
+            _library.AddBookToCatalog(_book);
             _library.AddUser(_customer);
-            _library.RentBook(_book, _customer, rentalDate, dueDate);
+            _library.RentBook(_book, _customer, dueDate);
 
             // Act
             _library.ReturnBook(_book);

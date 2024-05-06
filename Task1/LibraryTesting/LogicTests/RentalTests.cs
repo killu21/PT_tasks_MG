@@ -1,4 +1,4 @@
-namespace LibraryTests
+namespace LibraryTests.LogicTests
 {
     [TestFixture]
     public class RentalTests
@@ -64,8 +64,8 @@ namespace LibraryTests
                 $"Rental ID: {_rental.GetRentalId()}\n" + $"Book Title: {_book.GetTitle()}\n" + 
                 $"Rented By: {_customer.GetName()}\nRental Status: On Loan\n" +
                 $"Rental Date: {_rental.GetRentalDate()}\n" +
-                $"Due Date: {_rental.GetDueDate()}\"")
-            );
+                $"Due Date: {_rental.GetDueDate()}"
+                ));
         }
     }
 }

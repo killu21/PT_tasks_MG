@@ -1,4 +1,4 @@
-namespace LibraryTests;
+namespace LibraryTests.DataTests;
 
 [TestFixture]
 public class CatalogTests
@@ -12,6 +12,7 @@ public class CatalogTests
     [SetUp]
     public void SetUp()
     {
+        Book.SetNextBookId(1);
         _book1 = new Book("Title1", "Author1", Available);
         _book2 = new Book("Title2", "Author2", Available);
         var initialBooks = new Dictionary<int, Book>

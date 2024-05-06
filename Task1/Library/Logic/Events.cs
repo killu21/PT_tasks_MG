@@ -4,10 +4,22 @@ public class Events
 {
     private readonly List<Book> _books;
     
-    public Events(State state)
-    {
-       _books = state.GetCurrentCatalog().GetBooks();
-    }
+    // public Events(State state)
+    // {
+    //    _books = state.GetCurrentCatalog().GetBooks();
+    // }
+    
+
+   
+    
+        private readonly State _state;
+
+        public Events(State state)
+        {
+            _state = state;
+        }
+
+        
 
     public void CheckOutBooks(Customer customer, DateTime dueDate, Library library)
     {
@@ -48,18 +60,49 @@ public class Events
         }
     }
 
-    public void AddBooksToCatalog(Library library)
+    public void AddBooksToCatalog(Book[] books)
     {
-        foreach (var book in _books)
+        if (_state == null)
+        {
+            throw new InvalidOperationException("State is null.");
+        }
+
+        var library = _state.GetCurrentLibrary();
+        if (library == null)
+        {
+            throw new InvalidOperationException("Library is null.");
+        }
+
+        foreach (var book in books)
         {
             library.AddBookToCatalog(book);
         }
     }
 
-    public void RemoveBooksFromCatalog(Library library)
+    public void RemoveBooksFromCatalog(Book[] books)
     {
-        foreach (var book in _books)
+        if (_state == null)
         {
+            throw new InvalidOperationException("State is null.");
+        }
+
+        var library = _state.GetCurrentLibrary();
+        if (library == null)
+        {
+            throw new InvalidOperationException("Library is null.");
+        }
+
+        if (books == null)
+        {
+            throw new ArgumentNullException(nameof(books));
+        }
+
+        foreach (var book in books)
+        {
+            if (book == null)
+            {
+                throw new InvalidOperationException("Book is null.");
+            }
             library.DeleteBookFromCatalog(book);
         }
     }

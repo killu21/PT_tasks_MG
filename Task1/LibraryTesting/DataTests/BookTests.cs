@@ -1,4 +1,4 @@
-namespace LibraryTests;
+namespace LibraryTests.DataTests;
 
 [TestFixture]
 public class BookTests
