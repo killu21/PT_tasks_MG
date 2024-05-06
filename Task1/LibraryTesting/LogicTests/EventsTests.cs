@@ -64,21 +64,26 @@ namespace LibraryTests.LogicTests
         {
             // Arrange
             
-            Book _book4 = new Book( "Book4", "Author4", false);
-            Book _book5 = new Book( "Book5", "Author5", false);
+            Book book4 = new Book( "Book4", "Author4", true);
+            Book book5 = new Book( "Book5", "Author5", true);
+            _library.AddBookToCatalog(book4);
+            _library.AddBookToCatalog(book5);
 
-            _events.AddBooksToCatalog(new Book[] { book4, book5 });
+            // _events.AddBooksToCatalog(new Book[] { book4, book5 });
             _library.AddUser(_user);
             DateTime dueDate = DateTime.Now.AddDays(30);
-
+             _state.SetCurrentLibrary(_library);
+            // _library.UpdateLibraryState(_state);
             // Act
+            // Rental rent1 = new Rental(book4, (Customer)_user, dueDate);
+            // rent1.ToString();
             _events.CheckOutBooks((Customer)_user, dueDate, _library);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.IsFalse(_book4.GetIsAvailable());
-                Assert.IsFalse(_book5.GetIsAvailable());
+                Assert.IsFalse(book4.GetIsAvailable());
+                Assert.IsFalse(book5.GetIsAvailable());
                 Assert.IsTrue(_library.IsBookRented(book4));
                 Assert.IsTrue(_library.IsBookRented(book5));
             });
