@@ -1,17 +1,17 @@
 // Possibility of moving rented books from Catalog to a separate class (RentedCatalog)
+using static Library.Data.IDataInterfaces;
 
-namespace Library;
-
+namespace Library.Logic;
 public class Rental
 {
     private static int _nextRentalId = 1;
     private int _rentalId;           // { get; private set; }
-    private Book _rentedBook;        // { get; private set; }
-    private Customer _rentedBy;      // { get; private set; }
+    private IBook _rentedBook;        // { get; private set; }
+    private ICustomer _rentedBy;      // { get; private set; }
     private DateTime _rentalDate;    // { get; private set; }
     private DateTime _dueDate;       // { get; private set; }
 
-    public Rental(Book rentedBook, Customer rentedBy, DateTime dueDate)
+    public Rental(IBook rentedBook, ICustomer rentedBy, DateTime dueDate)
     {
         _rentalId = _nextRentalId;
         _rentedBook = rentedBook;
@@ -26,9 +26,9 @@ public class Rental
     
     public int GetRentalId() { return _rentalId; }
     
-    public Book GetRentedBook() { return _rentedBook; }
+    public IBook GetRentedBook() { return _rentedBook; }
     
-    public Customer GetRentedBy() { return _rentedBy; }
+    public ICustomer GetRentedBy() { return _rentedBy; }
     
     public DateTime GetRentalDate() { return _rentalDate; }
     

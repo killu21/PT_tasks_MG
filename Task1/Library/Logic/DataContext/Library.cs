@@ -1,49 +1,50 @@
-namespace Library;
+using static Library.Data.IDataInterfaces;
 
+namespace Library.Logic.DataContext;
 public class Library
 {
-    private Catalog _catalog;
-    private List<User> _users;
+    private ICatalog _catalog;
+    private List<IUser> _users;
     private readonly List<Rental> _rentals;
 
-    public Library()
+    public Library(ICatalog catalog, List<IUser> users, List<Rental> rentals)
     {
-        _catalog = new Catalog();
-        _users = new List<User>();
-        _rentals = new List<Rental>();
+        _catalog = catalog;
+        _users = users;
+        _rentals = rentals;
     }
     
-    public Catalog GetCatalog() { return _catalog; }
+    public ICatalog GetCatalog() { return _catalog; }
 
-    public List<User> GetUsers() { return _users; }
+    public List<IUser> GetUsers() { return _users; }
     
     public List<Rental> GetRentals() { return _rentals; }
     
-    public void AddUser(User user)
+    public void AddUser(IUser user)
     {
         _users.Add(user);
     }
 
-    public void DeleteUser(User user)
+    public void DeleteUser(IUser user)
     { 
         _users.Remove(user);
     }
     
     // Do we need that? Catalog class already has AddBook and RemoveBook methods. 
     // BUT - Checklist: `Logic` uses only the abstract `Data` layer API (?)
-    public void AddBookToCatalog(Book book)
+    public void AddBookToCatalog(IBook book)
     {
         _catalog.AddBook(book);
     }
     
-    public void DeleteBookFromCatalog(Book book)
+    public void DeleteBookFromCatalog(IBook book)
     { 
         _catalog.RemoveBook(book);
     }
 
     // Do we need that? Now we can check if a book is rented by checking its isAvailable field.
     // BUT - Checklist: `Logic` uses only the abstract `Data` layer API (?)
-    public bool IsBookRented(Book book)
+    public bool IsBookRented(IBook book)
     {
         foreach (Rental rental in _rentals)
         {
@@ -56,14 +57,14 @@ public class Library
         return false;
     }
 
-    public void RentBook(Book book, Customer customer, DateTime dueDate)
+    public void RentBook(IBook book, ICustomer customer, DateTime dueDate)
     {
         var rental = new Rental(book, customer, dueDate);
         _rentals.Add(rental);
     }
 
     // Same as above - do wee need that? But checklist: `Logic` uses only the abstract `Data` layer API
-    public void ReturnBook(Book book)
+    public void ReturnBook(IBook book)
     {
         foreach (Rental rental in _rentals)
         {
@@ -78,16 +79,7 @@ public class Library
     
     public void UpdateLibraryState(State state)
     {
-        _catalog = new Catalog();
-        foreach (var book in state.GetCurrentCatalog().GetBooks())
-        {
-            _catalog.AddBook(book);
-        }
-
-        _users = new List<User>();
-        foreach (var user in state.GetCurrentUsers())
-        {
-            _users.Add(user);
-        }
+        _catalog = state.GetCurrentCatalog();
+        _users = state.GetCurrentUsers();
     }
 }

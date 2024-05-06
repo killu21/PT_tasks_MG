@@ -1,26 +1,25 @@
-namespace Library;
-
-public class Catalog
+namespace Library.Data;
+public abstract class Catalog : IDataInterfaces.ICatalog
 {
-    private readonly Dictionary<int, Book> _books;
+    private readonly Dictionary<int, IDataInterfaces.IBook> _books;
 
-    public Catalog(Dictionary<int, Book> initialBooks = null)   // ?
+    protected Catalog(Dictionary<int, IDataInterfaces.IBook> initialBooks = null)
     {
-        _books = initialBooks ?? new Dictionary<int, Book>();   // ?
+        _books = initialBooks ?? new Dictionary<int, IDataInterfaces.IBook>();
     }
 
-    public void AddBook(Book book)
+    public void AddBook(IDataInterfaces.IBook book)
     {
         _books.Add(book.GetId(), book);
     }
 
-    public void RemoveBook(Book book)
+    public void RemoveBook(IDataInterfaces.IBook book)
     {
         _books.Remove(book.GetId());
     }
 
-    public List<Book> GetBooks()
+    public List<IDataInterfaces.IBook> GetBooks()
     {
-        return new List<Book>(_books.Values);
+        return new List<IDataInterfaces.IBook>(_books.Values);
     }
 }

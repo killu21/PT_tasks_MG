@@ -1,3 +1,5 @@
+using Library.Data;
+
 namespace LibraryTests.DataTests;
 
 [TestFixture]

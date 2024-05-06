@@ -1,16 +1,18 @@
+using Library.Data;
+
 namespace LibraryTests.DataTests;
 
 [TestFixture]
 public class StaffTests
 {
     private Staff _staff;
-    private Library.Library _library;
+    private Library.Logic.DataContext.Library _library;
 
     [SetUp]
     public void SetUp()
     {
         _staff = new Staff("Doe", "John", 1234567890);
-        _library = new Library.Library();
+        _library = new Library.Logic.DataContext.Library();
     }
 
     [Test]

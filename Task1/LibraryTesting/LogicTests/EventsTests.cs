@@ -2,6 +2,8 @@ using NUnit.Framework;
 using Library;
 using System;
 using System.Collections.Generic;
+using Library.Data;
+using Library.Logic;
 
 namespace LibraryTests.LogicTests
 {
@@ -10,7 +12,7 @@ namespace LibraryTests.LogicTests
     {
         private State _state;
         private Events _events;
-        private Library.Library _library;
+        private Library.Logic.DataContext.Library _library;
         private User _user;
         private Book _book1;
         private Book _book2;
@@ -21,7 +23,7 @@ namespace LibraryTests.LogicTests
             _user = new Customer("Doe", "John", 1234567890, 100);
             _book1 = new Book("Book1", "Author1", true);
             _book2 = new Book("Book2", "Author2", true);
-            _library = new Library.Library();
+            _library = new Library.Logic.DataContext.Library();
             _state = new State(_library);
             _events = new Events(_state);
 

@@ -1,8 +1,6 @@
 ﻿// Customer and Staff could have different ids c1, c2, s1, s2, etc.
-
-namespace Library;
-
-public abstract class User
+namespace Library.Data;
+public abstract class User : IDataInterfaces.IUser
 {
     private string _surname;
     private string _name;

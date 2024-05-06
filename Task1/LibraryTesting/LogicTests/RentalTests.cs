@@ -1,3 +1,6 @@
+using Library.Data;
+using Library.Logic;
+
 namespace LibraryTests.LogicTests
 {
     [TestFixture]

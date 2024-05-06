@@ -1,4 +1,6 @@
-namespace Library;
+using Library.Data;
+
+namespace Library.Logic;
 
 public class Events
 {
@@ -14,7 +16,7 @@ public class Events
     }
 
     
-    public void CheckOutBooks(Customer customer, DateTime dueDate, Library library)
+    public void CheckOutBooks(Customer customer, DateTime dueDate, DataContext.Library library)
     {
         foreach (var book in _books)
         {
@@ -44,7 +46,7 @@ public class Events
         }
     }
 
-    public void ReturnBooks(Library library)
+    public void ReturnBooks(DataContext.Library library)
     {
         // Return the books
         foreach (var book in _books)

@@ -1,16 +1,18 @@
+using Library.Data;
+
 namespace LibraryTests.LogicTests
 {
     [TestFixture]
     public class LibraryTests
     {
-        private Library.Library _library;
+        private Library.Logic.DataContext.Library _library;
         private Customer _customer;
         private Book _book;
 
         [SetUp]
         public void SetUp()
         {
-            _library = new Library.Library();
+            _library = new Library.Logic.DataContext.Library();
             _customer = new Customer("Doe", "John", 1234567890,  100);
             _book = new Book( "Book1", "Author1", true);
         }

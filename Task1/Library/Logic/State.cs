@@ -1,19 +1,21 @@
-namespace Library;
+using Library.Data;
+
+namespace Library.Logic;
 
 public class State
 {
     private Catalog _currentCatalog;
     private List<User> _currentUsers;
-    private Library _currentLibrary;
+    private DataContext.Library _currentLibrary;
 
-    public State(Library library)
+    public State(DataContext.Library library)
     {
         _currentLibrary = library;
         _currentCatalog = library.GetCatalog();
         _currentUsers = library.GetUsers();
     }
     
-    public Library GetCurrentLibrary()
+    public DataContext.Library GetCurrentLibrary()
     {
         return _currentLibrary;
     }
@@ -28,7 +30,7 @@ public class State
         _currentCatalog = catalog;
     }
 
-    public List<User> GetCurrentUsers()
+    public List<IDataInterfaces.IUser> GetCurrentUsers()
     {
         return _currentUsers;
     }
@@ -38,7 +40,7 @@ public class State
         _currentUsers = users;
     }
     
-    public void SetCurrentLibrary(Library library)
+    public void SetCurrentLibrary(DataContext.Library library)
     {
         _currentLibrary = library;
     }
