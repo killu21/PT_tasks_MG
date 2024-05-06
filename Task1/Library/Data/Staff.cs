@@ -1,10 +1,10 @@
 namespace Library.Data;
-public abstract class Staff : User, IDataInterfaces.IStaff
+public class Staff : User, IDataInterfaces.IStaff
 {
     private static int _nextStaffId = 1;
     private int _staffId;
 
-    protected Staff(string surname, string name, int phone)
+    public Staff(string surname, string name, int phone)
         : base(surname, name, phone)
     {
         _staffId = _nextStaffId;

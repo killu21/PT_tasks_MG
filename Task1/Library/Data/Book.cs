@@ -1,5 +1,5 @@
 namespace Library.Data;
-public abstract class Book : IDataInterfaces.IBook
+public class Book : IDataInterfaces.IBook
 {
     private static int _nextBookId = 1;
     private readonly int _bookId;
@@ -7,7 +7,7 @@ public abstract class Book : IDataInterfaces.IBook
     private readonly string _author;
     private bool _isAvailable;
 
-    protected Book(string title, string author, bool isAvailable)
+    public Book(string title, string author, bool isAvailable)
     {
         _bookId = _nextBookId;
         _title = title;

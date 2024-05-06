@@ -1,11 +1,11 @@
 namespace Library.Data;
-public abstract class Customer : User, IDataInterfaces.ICustomer
+public class Customer : User, IDataInterfaces.ICustomer
 {
     private static int _nextCustomerId = 1;
     private int _customerId;
     private int _balance;
 
-    protected Customer(string surname, string name, int phone, int balance) 
+    public Customer(string surname, string name, int phone, int balance) 
         : base(surname, name, phone)
     {
         _customerId = _nextCustomerId;

@@ -17,7 +17,7 @@ public class CatalogTests
         Book.SetNextBookId(1);
         _book1 = new Book("Title1", "Author1", Available);
         _book2 = new Book("Title2", "Author2", Available);
-        var initialBooks = new Dictionary<int, Book>
+        var initialBooks = new Dictionary<int, IDataInterfaces.IBook>
         {
             { _book1.GetId(), _book1 },
             { _book2.GetId(), _book2 }
