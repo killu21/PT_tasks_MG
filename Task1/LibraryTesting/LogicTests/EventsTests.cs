@@ -10,6 +10,9 @@ namespace LibraryTests.LogicTests
     [TestFixture]
     public class EventsTests
     {
+        private IDataInterfaces.ICatalog _catalog;
+        private List<IDataInterfaces.IUser> _users;
+        private List<Rental> _rentals;
         private State _state;
         private Events _events;
         private Library.Logic.DataContext.Library _library;
@@ -23,7 +26,7 @@ namespace LibraryTests.LogicTests
             _user = new Customer("Doe", "John", 1234567890, 100);
             _book1 = new Book("Book1", "Author1", true);
             _book2 = new Book("Book2", "Author2", true);
-            _library = new Library.Logic.DataContext.Library();
+            _library = new Library.Logic.DataContext.Library(_catalog, _users, _rentals);
             _state = new State(_library);
             _events = new Events(_state);
 

@@ -6,6 +6,9 @@ namespace LibraryTests.LogicTests
     [TestFixture]
     public class StateTests
     {
+        private IDataInterfaces.ICatalog _catalog;
+        private List<IDataInterfaces.IUser> _users;
+        private List<Rental> _rentals;
         private State _state;
         private Library.Logic.DataContext.Library _library;
         private User _user;
@@ -14,7 +17,7 @@ namespace LibraryTests.LogicTests
         [SetUp]
         public void SetUp()
         {
-            _library = new Library.Logic.DataContext.Library();
+            _library = new Library.Logic.DataContext.Library(_catalog, _users, _rentals);
             _user = new Customer("Doe", "John", 1234567890,  100);
             _book = new Book( "Book1", "Author1", true);
             _library.AddUser(_user);
@@ -41,7 +44,7 @@ namespace LibraryTests.LogicTests
         public void SetCurrentUsers_ShouldSetCurrentUsers()
         {
             // Arrange
-            var newUsers = new List<User>();
+            var newUsers = new List<IDataInterfaces.IUser>();
             User newUser = new Customer("Smith", "Jane", 0987654321,  200);
             newUsers.Add(newUser);
 

@@ -1,10 +1,14 @@
 using Library.Data;
+using Library.Logic;
 
 namespace LibraryTests.LogicTests
 {
     [TestFixture]
     public class LibraryTests
     {
+        private IDataInterfaces.ICatalog _catalog;
+        private List<IDataInterfaces.IUser> _users;
+        private List<Rental> _rentals;
         private Library.Logic.DataContext.Library _library;
         private Customer _customer;
         private Book _book;
@@ -12,7 +16,7 @@ namespace LibraryTests.LogicTests
         [SetUp]
         public void SetUp()
         {
-            _library = new Library.Logic.DataContext.Library();
+            _library = new Library.Logic.DataContext.Library(_catalog, _users, _rentals);
             _customer = new Customer("Doe", "John", 1234567890,  100);
             _book = new Book( "Book1", "Author1", true);
         }

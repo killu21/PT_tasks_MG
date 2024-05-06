@@ -1,18 +1,25 @@
 using Library.Data;
+using Library.Logic;
 
 namespace LibraryTests.DataTests;
 
 [TestFixture]
 public class StaffTests
 {
+    private IDataInterfaces.ICatalog _catalog;
+    private List<IDataInterfaces.IUser> _users;
+    private List<Rental> _rentals;
     private Staff _staff;
     private Library.Logic.DataContext.Library _library;
 
     [SetUp]
     public void SetUp()
     {
+        _catalog = new Catalog();
+        _users = new List<IDataInterfaces.IUser>();
+        _rentals = new List<Rental>();
         _staff = new Staff("Doe", "John", 1234567890);
-        _library = new Library.Logic.DataContext.Library();
+        _library = new Library.Logic.DataContext.Library(_catalog, _users, _rentals);
     }
 
     [Test]
