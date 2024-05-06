@@ -13,6 +13,7 @@ namespace LibraryTests.LogicTests
         [SetUp]
         public void SetUp()
         {
+            
             _book = new Book("Title1", "Author1", true);
             _customer = new Customer("Doe", "John", 1234567890, 100);
             _rental = new Rental(_book, _customer, DateTime.Now.AddDays(30));

@@ -17,6 +17,9 @@ namespace LibraryTests.LogicTests
         [SetUp]
         public void SetUp()
         {
+            _catalog = new Catalog();
+            _users = new List<IDataInterfaces.IUser>();
+            _rentals = new List<Rental>();
             _library = new Library.Logic.DataContext.Library(_catalog, _users, _rentals);
             _user = new Customer("Doe", "John", 1234567890,  100);
             _book = new Book( "Book1", "Author1", true);
