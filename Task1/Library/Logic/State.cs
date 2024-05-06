@@ -5,13 +5,13 @@ namespace Library.Logic;
 public class State
 {
     private Catalog _currentCatalog;
-    private List<User> _currentUsers;
+    private List<IDataInterfaces.IUser> _currentUsers;
     private DataContext.Library _currentLibrary;
 
     public State(DataContext.Library library)
     {
         _currentLibrary = library;
-        _currentCatalog = library.GetCatalog();
+        _currentCatalog = (Catalog?)library.GetCatalog();
         _currentUsers = library.GetUsers();
     }
     
@@ -35,7 +35,7 @@ public class State
         return _currentUsers;
     }
 
-    public void SetCurrentUsers(List<User> users)
+    public void SetCurrentUsers(List<IDataInterfaces.IUser> users)
     {
         _currentUsers = users;
     }

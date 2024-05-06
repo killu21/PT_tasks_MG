@@ -4,7 +4,7 @@ namespace Library.Logic;
 
 public class Events
 {
-    private readonly List<Book> _books;
+    private readonly List<IDataInterfaces.IBook> _books;
     
     
     private readonly State _state;
