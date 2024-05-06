@@ -2,9 +2,16 @@ namespace Library;
 
 public class Events
 {
-    public void CheckOutBooks(Book[] books, Customer customer, DateTime rentalDate, DateTime dueDate, Library library)
+    private readonly List<Book> _books;
+    
+    public Events(State state)
     {
-        foreach (var book in books)
+       _books = state.GetCurrentCatalog().GetBooks();
+    }
+
+    public void CheckOutBooks(Customer customer, DateTime dueDate, Library library)
+    {
+        foreach (var book in _books)
         {
             if (!library.GetCatalog().GetBooks().Contains(book))
             {
@@ -17,7 +24,7 @@ public class Events
             throw new InvalidOperationException($"User '{customer.GetName()}' is not registered with the library.");
         }
 
-        foreach (var book in books)
+        foreach (var book in _books)
         {
             if (library.IsBookRented(book))
             {
@@ -26,34 +33,34 @@ public class Events
         }
 
         // Rent the books
-        foreach (var book in books)
+        foreach (var book in _books)
         {
-            library.RentBook(book, customer, rentalDate, dueDate);
+            library.RentBook(book, customer, dueDate);
         }
     }
 
-    public void ReturnBooks(Book[] books, Library library)
+    public void ReturnBooks(Library library)
     {
         // Return the books
-        foreach (var book in books)
+        foreach (var book in _books)
         {
             library.ReturnBook(book);
         }
     }
 
-    public void AddBooksToCatalog(Book[] books, Library library)
+    public void AddBooksToCatalog(Library library)
     {
-        foreach (var book in books)
+        foreach (var book in _books)
         {
-            library.AddBook(book);
+            library.AddBookToCatalog(book);
         }
     }
 
-    public void RemoveBooksFromCatalog(Book[] books, Library library)
+    public void RemoveBooksFromCatalog(Library library)
     {
-        foreach (var book in books)
+        foreach (var book in _books)
         {
-            library.DeleteBook(book);
+            library.DeleteBookFromCatalog(book);
         }
     }
 }

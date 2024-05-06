@@ -75,28 +75,19 @@ public class Library
         }
         throw new InvalidOperationException("The specified book is not currently rented.");
     }
-    // ?
+    
     public void UpdateLibraryState(State state)
     {
         _catalog = new Catalog();
         foreach (var book in state.GetCurrentCatalog().GetBooks())
         {
-            _catalog.AddBook(new Book(book.GetTitle(), book.GetAuthor(), book.GetIsAvailable()));
+            _catalog.AddBook(book);
         }
 
         _users = new List<User>();
         foreach (var user in state.GetCurrentUsers())
         {
-            if (user is Staff)
-            {
-                Staff staff = (Staff)user;
-                _users.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId()));
-            }
-            else if (user is Customer)
-            {
-                Customer customer = (Customer)user;
-                _users.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
-            }
+            _users.Add(user);
         }
     }
 }
