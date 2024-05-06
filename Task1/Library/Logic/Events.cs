@@ -4,23 +4,16 @@ public class Events
 {
     private readonly List<Book> _books;
     
-    // public Events(State state)
-    // {
-    //    _books = state.GetCurrentCatalog().GetBooks();
-    // }
     
+    private readonly State _state;
 
-   
+    public Events(State state)
+    {
+        _books = state.GetCurrentCatalog().GetBooks();
+        _state = state;
+    }
+
     
-        private readonly State _state;
-
-        public Events(State state)
-        {
-            _state = state;
-        }
-
-        
-
     public void CheckOutBooks(Customer customer, DateTime dueDate, Library library)
     {
         foreach (var book in _books)
