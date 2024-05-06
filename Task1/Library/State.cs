@@ -10,31 +10,17 @@ public class State
     {
         _currentLibrary = library;
         _currentCatalog = library.GetCatalog();
-        _currentUsers = new List<User>();
-        
-        foreach (var user in library.GetUsers())
-        {
-            if (user is Customer)
-            {
-                Customer customer = (Customer)user;
-                _currentUsers.Add(new Customer(customer.GetSurname(), customer.GetName(), customer.GetPhone(), customer.GetCustomerId(), customer.GetBalance()));
-            }
-            else if (user is Staff)
-            {
-                Staff staff = (Staff)user;
-                _currentUsers.Add(new Staff(staff.GetSurname(), staff.GetName(), staff.GetPhone(), staff.GetStaffId()));
-            }
-        }
+        _currentUsers = library.GetUsers();
+    }
+    
+    public Library GetCurrentLibrary()
+    {
+        return _currentLibrary;
     }
 
     public Catalog GetCurrentCatalog()
     {
-        Dictionary<int, Book> bookDictionary = new Dictionary<int, Book>();
-        foreach (var book in _currentCatalog.GetBooks())
-        {
-            bookDictionary.Add(book.GetId(), book);
-        }
-        return new Catalog(bookDictionary);
+        return _currentCatalog;
     }
 
     public void SetCurrentCatalog(Catalog catalog)
@@ -44,11 +30,16 @@ public class State
 
     public List<User> GetCurrentUsers()
     {
-        return new List<User>(_currentUsers);
+        return _currentUsers;
     }
 
     public void SetCurrentUsers(List<User> users)
     {
         _currentUsers = users;
+    }
+    
+    public void SetCurrentLibrary(Library library)
+    {
+        _currentLibrary = library;
     }
 }
