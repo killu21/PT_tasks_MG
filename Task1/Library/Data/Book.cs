@@ -1,5 +1,5 @@
 namespace Library.Data;
-public class Book : IDataInterfaces.IBook
+public class Book : IDataInterfaces.IBook 
 {
     private static int _nextBookId = 1;
     private readonly int _bookId;

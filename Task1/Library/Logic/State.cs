@@ -6,16 +6,16 @@ public class State
 {
     private Catalog _currentCatalog;
     private List<IDataInterfaces.IUser> _currentUsers;
-    private DataContext.Library _currentLibrary;
+    private Library _currentLibrary;
 
-    public State(DataContext.Library library)
+    public State(Library library)
     {
         _currentLibrary = library;
         _currentCatalog = (Catalog?)library.GetCatalog();
         _currentUsers = library.GetUsers();
     }
     
-    public DataContext.Library GetCurrentLibrary()
+    public Library GetCurrentLibrary()
     {
         return _currentLibrary;
     }
@@ -40,7 +40,7 @@ public class State
         _currentUsers = users;
     }
     
-    public void SetCurrentLibrary(DataContext.Library library)
+    public void SetCurrentLibrary(Library library)
     {
         _currentLibrary = library;
     }

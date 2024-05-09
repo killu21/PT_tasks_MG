@@ -1,7 +1,7 @@
 using Library.Data;
 using static Library.Data.IDataInterfaces;
 
-namespace Library.Logic.DataContext;
+namespace Library.Logic;
 public class Library
 {
     private ICatalog _catalog;

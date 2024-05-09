@@ -16,7 +16,7 @@ public class Events
     }
 
     
-    public void CheckOutBooks(Customer customer, DateTime dueDate, DataContext.Library library)
+    public void CheckOutBooks(Customer customer, DateTime dueDate, Library library)
     {
         foreach (var book in _books)
         {
@@ -46,7 +46,7 @@ public class Events
         }
     }
 
-    public void ReturnBooks(DataContext.Library library)
+    public void ReturnBooks(Library library)
     {
         // Return the books
         foreach (var book in _books)

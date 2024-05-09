@@ -10,7 +10,7 @@ public class StaffTests
     private List<IDataInterfaces.IUser> _users;
     private List<Rental> _rentals;
     private Staff _staff;
-    private Library.Logic.DataContext.Library _library;
+    private Library.Logic.Library _library;
 
     [SetUp]
     public void SetUp()
@@ -19,7 +19,7 @@ public class StaffTests
         _users = new List<IDataInterfaces.IUser>();
         _rentals = new List<Rental>();
         _staff = new Staff("Doe", "John", 1234567890);
-        _library = new Library.Logic.DataContext.Library(_catalog, _users, _rentals);
+        _library = new Library.Logic.Library(_catalog, _users, _rentals);
     }
 
     [Test]
