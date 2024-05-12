@@ -1,5 +1,5 @@
 namespace Library.Data;
-public class Staff : User, IDataInterfaces.IStaff
+public abstract class Staff : User, IDataInterfaces.IStaff
 {
     private static int _nextStaffId = 1;
     private int _staffId;

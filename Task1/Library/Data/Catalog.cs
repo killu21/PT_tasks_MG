@@ -1,9 +1,9 @@
 namespace Library.Data;
-public class Catalog : IDataInterfaces.ICatalog
+public abstract class Catalog : IDataInterfaces.ICatalog
 {
     private readonly Dictionary<int, IDataInterfaces.IBook> _books;
 
-    public Catalog(Dictionary<int, IDataInterfaces.IBook> initialBooks = null)
+    protected Catalog(Dictionary<int, IDataInterfaces.IBook> initialBooks = null)
     {
         _books = initialBooks ?? new Dictionary<int, IDataInterfaces.IBook>();
     }
