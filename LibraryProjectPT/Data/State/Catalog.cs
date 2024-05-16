@@ -1,20 +1,19 @@
+using System.Collections.Generic;
 using Data.Inventory;
 
-namespace Data.State;
-public class Catalog(Dictionary<int, Book> books)
+namespace Data.State
 {
-    public void AddBook(Book book)
+    public abstract class Catalog
     {
-        books.Add(book.GetId(), book);
-    }
+        private Dictionary<int, Book> books;
 
-    public void RemoveBook(Book book)
-    {
-        books.Remove(book.GetId());
-    }
+        public Catalog(Dictionary<int, Book> books)
+        {
+            this.books = books;
+        }
 
-    public List<Book> GetBooks()
-    {
-        return new List<Book>(books.Values);
+        public abstract void AddBook(Book book);
+        public abstract void RemoveBook(Book book);
+        public abstract List<Book> GetBooks();
     }
 }
