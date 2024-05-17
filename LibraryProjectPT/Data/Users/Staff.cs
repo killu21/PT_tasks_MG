@@ -1,18 +1,14 @@
-using Data.Users;
-
-namespace Data.State
+namespace Data.Users;
+public abstract class Staff : User
 {
-    public abstract class Staff : User
+    public int StaffId { get; set; }
+
+    public Staff(int staffId, string surname, string name, int phone)
+        : base(surname, name, phone)
     {
-        private int staffId;
-
-        public Staff(int staffId, string surname, string name, int phone)
-            : base(surname, name, phone)
-        {
-            this.staffId = staffId;
-        }
-
-        public abstract int GetStaffId();
-        public abstract void SetStaffId(int value);
+        StaffId = staffId;
     }
+
+    // public int GetStaffId();
+    // public void SetStaffId(int value);
 }

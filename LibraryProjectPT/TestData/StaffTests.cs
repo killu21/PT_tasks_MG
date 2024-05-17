@@ -15,7 +15,7 @@
 //     [SetUp]
 //     public void SetUp()
 //     {
-//         _catalog = new Catalog();
+//         _catalog = new Inventory();
 //         _users = new List<IDataInterfaces.IUser>();
 //         _rentals = new List<Rental>();
 //         _staff = new Staff("Doe", "John", 1234567890);

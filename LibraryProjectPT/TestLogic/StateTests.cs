@@ -17,7 +17,7 @@
 //         [SetUp]
 //         public void SetUp()
 //         {
-//             _catalog = new Catalog();
+//             _catalog = new Inventory();
 //             _users = new List<IDataInterfaces.IUser>();
 //             _rentals = new List<Rental>();
 //             _library = new Library.Logic.Library(_catalog, _users, _rentals);
@@ -32,7 +32,7 @@
 //         public void SetCurrentCatalog_ShouldSetCurrentCatalog()
 //         {
 //             // Arrange
-//             var newCatalog = new Catalog();
+//             var newCatalog = new Inventory();
 //             var newBook = new Book("Book2", "Author2", true);
 //             newCatalog.AddBook(newBook);
 //

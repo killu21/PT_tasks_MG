@@ -1,46 +1,45 @@
 using Data.Inventory;
-using Data.State;
 using Data.Users;
 
 namespace Data;
 public interface IData
 { 
     // ------------------- Books ------------------- //
-    int GetId();
-    string GetTitle();
-    string GetAuthor();
-    bool GetIsAvailable();
-    void SetIsAvailable(bool value);
+    int GetBookId(int dictionaryKey);
+    string GetBookTitle(int dictionaryKey);
+    string GetBookAuthor(int dictionaryKey);
+    bool GetIsBookAvailable(int dictionaryKey);
+    void SetIsBookAvailable(int dictionaryKey, bool value);
 
     // ------------------- User ------------------- //
-    string GetSurname();
-    void SetSurname(string value);
-    string GetName();
-    void SetName(string value);
-    int GetPhone();
-    void SetPhone(int value);
+    string GetUserSurname(int id);
+    void SetUserSurname(int id, string value);
+    string GetUserName(int id);
+    void SetUserName(int id, string value);
+    int GetUserPhone(int id);
+    void SetUserPhone(int id, int value);
     
     // ------------------- Customer ---------------- //
-    int GetCustomerId();
-    int GetBalance();
-    void SetCustomerId(int value);
-    void SetBalance(int value);
+    // int GetCustomerId();
+    int GetCustomerBalance(int id);
+    void SetCustomerId(int id, int value);
+    void SetCustomerBalance(int id, int value);
     
     // ------------------- Staff ------------------- //
-    int GetStaffId();
-    void SetStaffId(int value);
+    // int GetStaffId();
+    void SetStaffId(int id, int value);
     
-    // ------------------- Catalog ----------------- //
+    // ------------------- Inventory ----------------- //
     void AddBook(Book book);
     void RemoveBook(Book book);
-    List<Book> GetBooks();
+    Book GetBookFromCatalog(int dictionaryKey);
     
     // ------------------- Rental ------------------ //
-    int GetRentalId();
-    Book GetRentedBook();
-    Customer GetRentedBy();
-    DateTime GetRentalDate();
-    DateTime GetDueDate();
-    bool IsOverdue();
-    string RentalToString();
+    // int GetRentalId();
+    Book GetRentedBook(int rentalId);
+    Customer GetRentedBy(int rentalId);
+    DateTime GetRentalDate(int rentalId);
+    DateTime GetDueDate(int rentalId);
+    bool IsOverdue(int rentalId);
+    string RentalToString(int rentalId);
 }

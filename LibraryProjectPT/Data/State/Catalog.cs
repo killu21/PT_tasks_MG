@@ -1,19 +1,32 @@
-using System.Collections.Generic;
 using Data.Inventory;
 
-namespace Data.State
+namespace Data.State;
+public class Catalog
 {
-    public abstract class Catalog
+    public Dictionary<int, Book> books;
+
+    public Catalog()
     {
-        private Dictionary<int, Book> books;
+        books = new Dictionary<int, Book>();
+    }
 
-        public Catalog(Dictionary<int, Book> books)
+    public void AddBookToCatalog(Book book)
+    {
+        books.Add(book.BookId, book);
+    }
+
+    public void RemoveBookFromCatalog(Book book)
+    {
+        books.Remove(book.BookId);
+    }
+    
+    public Book GetBookFromCatalog(int bookId)
+    {
+        if (books.TryGetValue(bookId, out var book))
         {
-            this.books = books;
+            return book;
         }
-
-        public abstract void AddBook(Book book);
-        public abstract void RemoveBook(Book book);
-        public abstract List<Book> GetBooks();
+        
+        throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
     }
 }

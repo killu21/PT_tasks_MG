@@ -1,224 +1,343 @@
-using System;
-using System.Collections.Generic;
 using Data.Inventory;
 using Data.Users;
 using Data.State;
 
-namespace Data
+namespace Data;
+public class Data : IData
 {
-    public class Data : IData
+    private readonly DataRepository _repository;
+    
+    public Data()
     {
-        private DataContext context;
+        _repository = new DataRepository();
+    }
 
-        public Data(DataContext context)
+    public Data(DataRepository repository)
+    {
+        _repository = repository;
+    }
+    
+    // ------------------- Books ------------------- //
+    public int GetBookId(int dictionaryKey)
+    {
+        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
         {
-            this.context = context;
+            return book.BookId;
         }
-       
+        
+        throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
+    }
 
-        // ------------------- Books ------------------- //
-
-        public int GetId()
+    public string GetBookTitle(int dictionaryKey)
+    {
+        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
         {
-            var book = GetDefaultBook();
-            return book.GetBookId();
+            return book.Title;
         }
+        
+        throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
+    }
 
-        public string GetTitle()
+    public string GetBookAuthor(int dictionaryKey)
+    {
+        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
         {
-            var book = GetDefaultBook();
-            return book.GetTitle();
+            return book.Author;
         }
-
-        public string GetAuthor()
+        
+        throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
+    }
+    
+    public bool GetIsBookAvailable(int dictionaryKey)
+    {
+        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
         {
-            var book = GetDefaultBook();
-            return book.GetAuthor();
+            return book.IsAvailable;
         }
+        
+        throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
+    }
 
-        public bool GetIsAvailable()
+    public void SetIsBookAvailable(int dictionaryKey, bool value)
+    {
+        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
         {
-            var book = GetDefaultBook();
-            return book.GetIsAvailable();
+            book.IsAvailable = value;
         }
-
-        public void SetIsAvailable(bool value)
+        
+        throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
+    }
+    
+    // ------------------- User ------------------- //
+    // Assuming that the ID is unique:
+    // Customers id range from 1 to 1000
+    // Staff id range from 1001 to 2000
+    public string GetUserSurname(int id)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            var book = GetDefaultBook();
-            book.SetIsAvailable(value);
-        }
-
-        private Book GetDefaultBook()
-        {
-            // Replace with your logic to get the default or currently selected book
-            return context.Books.First().Value;
-        }
-
-        // ------------------- User ------------------- //
-        public string GetSurname()
-        {
-            // Replace with your logic to get the default or currently selected user
-            var user = GetDefaultUser();
-            return user.GetSurname();
-        }
-
-        public void SetSurname(string value)
-        {
-            var user = GetDefaultUser();
-            user.SetSurname(value);
-        }
-
-        public string GetName()
-        {
-            var user = GetDefaultUser();
-            return user.GetName();
-        }
-
-        public void SetName(string value)
-        {
-            var user = GetDefaultUser();
-            user.SetName(value);
-        }
-
-        public int GetPhone()
-        {
-            var user = GetDefaultUser();
-            return user.GetPhone();
-        }
-
-        public void SetPhone(int value)
-        {
-            var user = GetDefaultUser();
-            user.SetPhone(value);
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                return customer.Surname;
+            }
+            if (user is Staff staff && staff.StaffId == id)
+            {
+                return staff.Surname;
+            }
         }
 
-        private User GetDefaultUser()
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+
+    public void SetUserSurname(int id, string value)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            // Replace with your logic to get the default or currently selected user
-            return context.Users.First();
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                customer.Surname = value;
+            }
+            if (user is Staff staff && staff.StaffId == id)
+            {
+                staff.Surname = value;
+            }
         }
 
-        // ------------------- Customer ---------------- //
-        public int GetCustomerId()
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+
+    public string GetUserName(int id)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            var customer = GetDefaultCustomer();
-            return customer.GetCustomerId();
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                return customer.Name;
+            }
+            if (user is Staff staff && staff.StaffId == id)
+            {
+                return staff.Name;
+            }
         }
 
-        public int GetBalance()
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+
+    public void SetUserName(int id, string value)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            var customer = GetDefaultCustomer();
-            return customer.GetBalance();
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                customer.Name = value;
+            }
+
+            if (user is Staff staff && staff.StaffId == id)
+            {
+                staff.Name = value;
+            }
         }
 
-        public void SetCustomerId(int value)
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+
+    public int GetUserPhone(int id)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            var customer = GetDefaultCustomer();
-            customer.SetCustomerId(value);
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                return customer.Phone;
+            }
+
+            if (user is Staff staff && staff.StaffId == id)
+            {
+                return staff.Phone;
+            }
         }
 
-        public void SetBalance(int value)
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+
+    public void SetUserPhone(int id, int value)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            var customer = GetDefaultCustomer();
-            customer.SetBalance(value);
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                customer.Phone = value;
+            }
+
+            if (user is Staff staff && staff.StaffId == id)
+            {
+                staff.Phone = value;
+            }
         }
 
-        private Customer GetDefaultCustomer()
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+    
+    // ------------------- Customer ---------------- //
+    // public int GetCustomerId() // Maybe search by surname name and phone
+    // {
+    //     return 0;
+    // }
+
+    public int GetCustomerBalance(int id)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            // Replace with your logic to get the default or currently selected customer
-            return (Customer)context.Users.First();
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                return customer.Balance;
+            }
         }
 
-        // ------------------- Staff ------------------- //
-        public int GetStaffId()
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+
+    public void SetCustomerId(int id, int value)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            var staff = GetDefaultStaff();
-            return staff.GetStaffId();
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                customer.CustomerId = value;
+            }
         }
 
-        public void SetStaffId(int value)
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+
+    public void SetCustomerBalance(int id, int value)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            var staff = GetDefaultStaff();
-            staff.SetStaffId(value);
+            if (user is Customer customer && customer.CustomerId == id)
+            {
+                customer.Balance = value;
+            }
         }
 
-        private Staff GetDefaultStaff()
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+
+    // ------------------- Staff ------------------- //
+    // public int GetStaffId() // Maybe search by surname name and phone
+    // {
+    //     return 0;
+    // }
+
+    public void SetStaffId(int id, int value)
+    {
+        foreach (var user in _repository.UsersList)
         {
-            // Replace with your logic to get the default or currently selected staff member
-            return (Staff)context.Users.First();
+            if (user is Staff staff && staff.StaffId == id)
+            {
+                staff.StaffId = value;
+            }
         }
 
-        // ------------------- Catalog ----------------- //
-        public void AddBook(Book book)
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+    
+    // ------------------- Inventory ----------------- //
+    public void AddBook(Book book)
+    {
+        _repository.BooksCatalog.AddBookToCatalog(book);
+    }
+
+    public void RemoveBook(Book book)
+    {
+        _repository.BooksCatalog.RemoveBookFromCatalog(book);
+    }
+
+    public Book GetBookFromCatalog(int dictionaryKey)
+    {
+        return _repository.BooksCatalog.GetBookFromCatalog(dictionaryKey);
+    }
+    
+    // ------------------- Rental ------------------ //
+    // public int GetRentalId() // Maybe search by rentedBook and rentedBy
+    // {
+    //     return 0;
+    // }
+
+    public Book GetRentedBook(int rentalId)
+    {
+        foreach (var rental in _repository.RentalsList)
         {
-            var catalog = GetDefaultCatalog();
-            catalog.AddBook(book);
+            if (rental.RentalId == rentalId)
+            {
+                return rental.RentedBook;
+            }
         }
 
-        public void RemoveBook(Book book)
+        throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
+    }
+    
+    public Customer GetRentedBy(int rentalId)
+    {
+        foreach (var rental in _repository.RentalsList)
         {
-            var catalog = GetDefaultCatalog();
-            catalog.RemoveBook(book);
+            if (rental.RentalId == rentalId)
+            {
+                return rental.RentedBy;
+            }
         }
 
-        public List<Book> GetBooks()
+        throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
+    }
+
+    public DateTime GetRentalDate(int rentalId)
+    {
+        foreach (var rental in _repository.RentalsList)
         {
-            var catalog = GetDefaultCatalog();
-            return catalog.GetBooks();
+            if (rental.RentalId == rentalId)
+            {
+                return rental.RentalDate;
+            }
         }
 
-        private Catalog GetDefaultCatalog()
+        throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
+    }
+
+    public DateTime GetDueDate(int rentalId)
+    {
+        foreach (var rental in _repository.RentalsList)
         {
-            // Replace with your logic to get the default or currently selected catalog
-            return context.Catalogs.First();
-        }
-        // ------------------- Rental ------------------ //
-        public int GetRentalId()
-        {
-            var rental = GetDefaultRental();
-            return rental.GetRentalId();
+            if (rental.RentalId == rentalId)
+            {
+                return rental.DueDate;
+            }
         }
 
-        public Book GetRentedBook()
+        throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
+    }
+
+    public bool IsOverdue(int rentalId)
+    {
+        foreach (var rental in _repository.RentalsList)
         {
-            var rental = GetDefaultRental();
-            return rental.GetRentedBook();
+            if (rental.RentalId == rentalId)
+            {
+                return rental.IsOverdue();
+            }
         }
 
-        public Customer GetRentedBy()
+        throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
+    }
+    
+    public string RentalToString(int rentalId)
+    {
+        foreach (var rental in _repository.RentalsList)
         {
-            var rental = GetDefaultRental();
-            return rental.GetRentedBy();
+            if (rental.RentalId == rentalId)
+            {
+                return rental.RentalToString();
+            }
         }
 
-        public DateTime GetRentalDate()
-        {
-            var rental = GetDefaultRental();
-            return rental.GetRentalDate();
-        }
-
-        public DateTime GetDueDate()
-        {
-            var rental = GetDefaultRental();
-            return rental.GetDueDate();
-        }
-
-        public bool IsOverdue()
-        {
-            var rental = GetDefaultRental();
-            return rental.IsOverdue();
-        }
-
-        public string RentalToString()
-        {
-            var rental = GetDefaultRental();
-            return rental.RentalToString();
-        }
-
-        private Rental GetDefaultRental()
-        {
-            // Replace with your logic to get the default or currently selected rental
-            return context.Rentals.First();
-        }
+        throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
     }
 }

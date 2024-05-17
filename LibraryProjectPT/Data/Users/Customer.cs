@@ -1,22 +1,18 @@
-using Data.Users;
-
-namespace Data.State
+namespace Data.Users;
+public abstract class Customer : User
 {
-    public abstract class Customer : User
+    public int CustomerId { get; set; }
+    public int Balance { get; set; }
+
+    public Customer(int customerId, string surname, string name, int phone, int balance)
+        : base(surname, name, phone)
     {
-        private int customerId;
-        private int balance;
-
-        public Customer(int customerId, string surname, string name, int phone, int balance)
-            : base(surname, name, phone)
-        {
-            this.customerId = customerId;
-            this.balance = balance;
-        }
-
-        public abstract int GetCustomerId();
-        public abstract int GetBalance();
-        public abstract void SetCustomerId(int value);
-        public abstract void SetBalance(int value);
+        CustomerId = customerId;
+        Balance = balance;
     }
+
+    // public int GetCustomerId();
+    // public int GetBalance();
+    // public void SetCustomerId(int value);
+    // public void SetBalance(int value);
 }

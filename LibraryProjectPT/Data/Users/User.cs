@@ -1,23 +1,21 @@
-﻿namespace Data.Users
+﻿namespace Data.Users;
+public abstract class User
 {
-    public abstract class User
+    public string Surname { get; set; }
+    public string Name { get; set; }
+    public int Phone { get; set; }
+
+    public User(string surname, string name, int phone)
     {
-        private string surname;
-        private string name;
-        private int phone;
-
-        public User(string surname, string name, int phone)
-        {
-            this.surname = surname;
-            this.name = name;
-            this.phone = phone;
-        }
-
-        public abstract string GetSurname();
-        public abstract string GetName();
-        public abstract int GetPhone();
-        public abstract void SetSurname(string value);
-        public abstract void SetName(string value);
-        public abstract void SetPhone(int value);
+        Surname = surname;
+        Name = name;
+        Phone = phone;
     }
+
+    // public string GetSurname();
+    // public string GetName();
+    // public int GetPhone();
+    // public void SetSurname(string value);
+    // public void SetName(string value);
+    // public void SetPhone(int value);
 }

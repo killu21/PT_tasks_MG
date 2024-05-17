@@ -5,7 +5,7 @@
 // [TestFixture]
 // public class CatalogTests
 // {
-//     private Catalog _catalog;
+//     private Inventory _catalog;
 //     private Book _book1;
 //     private Book _book2;
 //     private const bool Available = true;
@@ -22,7 +22,7 @@
 //             { _book1.GetId(), _book1 },
 //             { _book2.GetId(), _book2 }
 //         };
-//         _catalog = new Catalog(initialBooks);
+//         _catalog = new Inventory(initialBooks);
 //     }
 //
 //     [Test]

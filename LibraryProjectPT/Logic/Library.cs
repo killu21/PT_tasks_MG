@@ -31,7 +31,7 @@
 //         _users.Remove(user);
 //     }
 //     
-//     // Do we need that? Catalog class already has AddBook and RemoveBook methods. 
+//     // Do we need that? Inventory class already has AddBook and RemoveBook methods. 
 //     // BUT - Checklist: `Logic` uses only the abstract `Data` layer API (?)
 //     public void AddBookToCatalog(IBook book)
 //     {
