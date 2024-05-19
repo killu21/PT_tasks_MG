@@ -1,49 +1,31 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Data;
+using DataTest.TestGenerators;
 using Data.Users;
-using DataTest;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace DataTest
 {
     [TestClass]
-    public abstract class TestData
+    public class TestStaticGeneratedData : TestData
     {
-        public DataRepository _context;
-        public IData _data;
-        public abstract void Initialize();
-       
-
-        [TestMethod]
-        public void TestGenerateUsers()
+        [TestInitialize]
+        public override void Initialize()
         {
-            Assert.AreEqual(6, _context.UsersList.Count);
-            Assert.AreEqual(3, _context.UsersList.OfType<Customer>().Count());
-            Assert.AreEqual(3, _context.UsersList.OfType<Staff>().Count());
+            IDataGenerator dataGenerator = new StaticDataGenerator();
+            _context = dataGenerator.GetDataContext();
+            _data = new Data.Data(_context);
         }
 
         [TestMethod]
-        public void TestGenerateBooks()
-        {
-            Assert.AreEqual(5, _context.BooksCatalog.books.Count);
-            Assert.IsTrue(_context.BooksCatalog.books.Values.All(book => book.IsAvailable));
-        }
-
-        [TestMethod]
-        public void TestGenerateRentals()
-        {
-            Assert.AreEqual(4, _context.RentalsList.Count);
-            Assert.IsTrue(_context.RentalsList.All(rental => true));
-        }
-        [TestMethod]
-        public void TestGetBookId()
+        public new void TestGetBookId()
         {
             var bookId = _data.GetBookId(1);
             Assert.AreEqual(1, bookId);
         }
 
         [TestMethod]
-        public void TestGetBookTitle()
+        public new void TestGetBookTitle()
         {
             var bookTitle = _data.GetBookTitle(1);
             Assert.AreEqual("Book 1", bookTitle);
@@ -83,7 +65,6 @@ namespace DataTest
             var userPhone = _data.GetUserPhone(1);
             Assert.AreEqual(123456789, userPhone);
         }
-        
 
         [TestMethod]
         public void TestGetRentedBook()

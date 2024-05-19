@@ -5,11 +5,11 @@ using Data.Users;
 
 namespace DataTest.TestGenerators
 {
-    internal class FixedDataGenerator : IDataGenerator
+    internal class StaticDataGenerator : IDataGenerator
     {
         private DataRepository _context;
 
-        public FixedDataGenerator()
+        public StaticDataGenerator()
         {
             _context = new DataRepository();
 
