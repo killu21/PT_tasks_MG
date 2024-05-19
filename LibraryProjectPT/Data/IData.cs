@@ -1,9 +1,11 @@
 using Data.Inventory;
+using Data.State;
 using Data.Users;
 
 namespace Data;
 public interface IData
 { 
+   
     // ------------------- Books ------------------- //
     int GetBookId(int dictionaryKey);
     string GetBookTitle(int dictionaryKey);
@@ -16,8 +18,9 @@ public interface IData
     void SetUserSurname(int id, string value);
     string GetUserName(int id);
     void SetUserName(int id, string value);
-    int GetUserPhone(int id);
+    long GetUserPhone(int id);
     void SetUserPhone(int id, int value);
+    public List<User> GetUsers();
     
     // ------------------- Customer ---------------- //
     // int GetCustomerId();
@@ -33,13 +36,16 @@ public interface IData
     void AddBook(Book book);
     void RemoveBook(Book book);
     Book GetBookFromCatalog(int dictionaryKey);
+    public List<Book> GetAllBooksFromCatalog();
     
     // ------------------- Rental ------------------ //
     // int GetRentalId();
-    Book GetRentedBook(int rentalId);
-    Customer GetRentedBy(int rentalId);
-    DateTime GetRentalDate(int rentalId);
-    DateTime GetDueDate(int rentalId);
-    bool IsOverdue(int rentalId);
-    string RentalToString(int rentalId);
+    Book GetRentedBook(Guid rentalId);
+    Customer GetRentedBy(Guid rentalId);
+    DateTime GetRentalDate(Guid rentalId);
+    DateTime GetDueDate(Guid rentalId);
+    bool IsOverdue(Guid rentalId);
+    string RentalToString(Guid rentalId);
+    void AddRental(Rental rental);
+    public List<Rental> GetRentals();
 }

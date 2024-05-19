@@ -5,16 +5,16 @@ using Data.Users;
 namespace Data.State;
 public class Rental
 {
-    public int RentalId { get; }
-    public Book RentedBook { get; }
-    public Customer RentedBy { get; }
-    public DateTime RentalDate { get; }
-    public DateTime DueDate { get; }
+    public Guid RentalId { get; init; }
+    public Book RentedBook { get; set; }
+    public Customer RentedBy { get; set; }
+    public DateTime RentalDate { get; set; }
+    public DateTime DueDate { get; set; }
 
     private DateTime _rentalDate;
     private DateTime _dueDate;
 
-    public Rental(int rentalId, Book rentedBook, Customer rentedBy, DateTime rentalDate, DateTime dueDate)
+    public Rental(Guid rentalId, Book rentedBook, Customer rentedBy, DateTime rentalDate, DateTime dueDate)
     {
         RentalId = rentalId;
         RentedBook = rentedBook;

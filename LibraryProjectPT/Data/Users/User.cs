@@ -3,9 +3,9 @@ public abstract class User
 {
     public string Surname { get; set; }
     public string Name { get; set; }
-    public int Phone { get; set; }
+    public long Phone { get; set; }
 
-    public User(string surname, string name, int phone)
+    public User(string surname, string name, long phone)
     {
         Surname = surname;
         Name = name;

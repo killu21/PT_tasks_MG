@@ -141,7 +141,7 @@ public class Data : IData
         throw new KeyNotFoundException("The provided ID was not found in the Users list.");
     }
 
-    public int GetUserPhone(int id)
+    public long GetUserPhone(int id)
     {
         foreach (var user in _repository.UsersList)
         {
@@ -165,16 +165,21 @@ public class Data : IData
         {
             if (user is Customer customer && customer.CustomerId == id)
             {
-                customer.Phone = value;
+                customer.Phone = (uint)value;
             }
 
             if (user is Staff staff && staff.StaffId == id)
             {
-                staff.Phone = value;
+                staff.Phone = (uint)value;
             }
         }
 
         throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
+    
+    public List<User> GetUsers()
+    {
+        return _repository.UsersList;
     }
     
     // ------------------- Customer ---------------- //
@@ -257,13 +262,18 @@ public class Data : IData
         return _repository.BooksCatalog.GetBookFromCatalog(dictionaryKey);
     }
     
+    public List<Book> GetAllBooksFromCatalog()
+    {
+        return new List<Book>(_repository.BooksCatalog.books.Values);
+    }
+    
     // ------------------- Rental ------------------ //
     // public int GetRentalId() // Maybe search by rentedBook and rentedBy
     // {
     //     return 0;
     // }
 
-    public Book GetRentedBook(int rentalId)
+    public Book GetRentedBook(Guid rentalId)
     {
         foreach (var rental in _repository.RentalsList)
         {
@@ -276,7 +286,7 @@ public class Data : IData
         throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
     }
     
-    public Customer GetRentedBy(int rentalId)
+    public Customer GetRentedBy(Guid rentalId)
     {
         foreach (var rental in _repository.RentalsList)
         {
@@ -289,7 +299,7 @@ public class Data : IData
         throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
     }
 
-    public DateTime GetRentalDate(int rentalId)
+    public DateTime GetRentalDate(Guid rentalId)
     {
         foreach (var rental in _repository.RentalsList)
         {
@@ -302,7 +312,7 @@ public class Data : IData
         throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
     }
 
-    public DateTime GetDueDate(int rentalId)
+    public DateTime GetDueDate(Guid rentalId)
     {
         foreach (var rental in _repository.RentalsList)
         {
@@ -315,7 +325,7 @@ public class Data : IData
         throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
     }
 
-    public bool IsOverdue(int rentalId)
+    public bool IsOverdue(Guid rentalId)
     {
         foreach (var rental in _repository.RentalsList)
         {
@@ -328,7 +338,7 @@ public class Data : IData
         throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
     }
     
-    public string RentalToString(int rentalId)
+    public string RentalToString(Guid rentalId)
     {
         foreach (var rental in _repository.RentalsList)
         {
@@ -340,4 +350,15 @@ public class Data : IData
 
         throw new KeyNotFoundException("The provided ID was not found in the Rentals list.");
     }
+
+    public void AddRental(Rental rental)
+    {
+        _repository.RentalsList.Add(rental);
+    }
+    
+    public List<Rental> GetRentals()
+    {
+        return _repository.RentalsList;
+    }
+    
 }
