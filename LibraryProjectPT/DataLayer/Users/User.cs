@@ -1,4 +1,4 @@
-﻿namespace Data.Users;
+﻿namespace DataLayer.Users;
 public abstract class User
 {
     public string Surname { get; set; }
@@ -11,11 +11,4 @@ public abstract class User
         Name = name;
         Phone = phone;
     }
-
-    // public string GetSurname();
-    // public string GetName();
-    // public int GetPhone();
-    // public void SetSurname(string value);
-    // public void SetName(string value);
-    // public void SetPhone(int value);
 }

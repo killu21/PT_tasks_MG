@@ -2,8 +2,8 @@
 // using Library;
 // using System;
 // using System.Collections.Generic;
-// using Library.Data;
-// using Library.Logic;
+// using Library.DataLayer;
+// using Library.LogicLayer;
 //
 // namespace LibraryTests.LogicTests
 // {
@@ -15,7 +15,7 @@
 //         private List<Rental> _rentals;
 //         private State _state;
 //         private Events _events;
-//         private Library.Logic.Library _library;
+//         private Library.LogicLayer.Library _library;
 //         private User _user;
 //         private Book _book1;
 //         private Book _book2;
@@ -29,7 +29,7 @@
 //             _user = new Customer("Doe", "John", 1234567890, 100);
 //             _book1 = new Book("Book1", "Author1", true);
 //             _book2 = new Book("Book2", "Author2", true);
-//             _library = new Library.Logic.Library(_catalog, _users, _rentals);
+//             _library = new Library.LogicLayer.Library(_catalog, _users, _rentals);
 //             _state = new State(_library);
 //             _events = new Events(_state);
 //

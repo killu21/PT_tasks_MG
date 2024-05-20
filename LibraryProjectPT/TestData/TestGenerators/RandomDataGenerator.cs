@@ -1,34 +1,30 @@
-using Data;
-using Data.Inventory;
-using Data.State;
-using Data.Users;
+using DataLayer;
+using DataLayer.Inventory;
+using DataLayer.State;
+using DataLayer.Users;
 
 namespace DataTest.TestGenerators;
 
 internal class RandomDataGenerator : IDataGenerator
 {
-    private readonly Random random = new(DateTime.Now.Millisecond);
-
-    private DataRepository _context;
+    private readonly Random _random = new(DateTime.Now.Millisecond);
+    private readonly DataRepository _randomTestRepo;
 
     public RandomDataGenerator()
     {
-        _context = new DataRepository();
+        _randomTestRepo = new DataRepository();
 
         GenerateUsers();
         GenerateBooks();
         GenerateRentals();
     }
-
     
-
-    public DataRepository GetDataContext()
+    public DataRepository GetTestRepo()
     {
-        return _context;
+        return _randomTestRepo;
     }
-
     
-    private void GenerateBooks()
+    private void GenerateBooks()    // Generate 10 available books
     {
         string[] titles = {
             "The Great Gatsby",
@@ -56,10 +52,10 @@ internal class RandomDataGenerator : IDataGenerator
             "Ernest Hemingway"
         };
 
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
         {
-            Book book = new Book(i + 1, titles[random.Next(titles.Length)], authors[random.Next(authors.Length)], true);
-            _context.BooksCatalog.AddBookToCatalog(book);
+            var book = new Book(i + 1, titles[_random.Next(titles.Length)], authors[_random.Next(authors.Length)], true);
+            _randomTestRepo.BooksCatalog.AddBookToCatalog(book);
         }
     }
     
@@ -67,47 +63,46 @@ internal class RandomDataGenerator : IDataGenerator
     {
         string[] firstNames = { "John", "Emma", "Michael", "Sophia", "William", "Olivia", "James", "Ava", "Alexander", "Isabella" };
         string[] lastNames = { "Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor" };
-        string[] domains = { "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "icloud.com" };
 
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
         {
-            Customer customer = new Customer(i + 1, lastNames[random.Next(lastNames.Length)],
-                firstNames[random.Next(firstNames.Length)], GenerateRandomPhoneNumber());
+            var customer = new Customer(i + 1, lastNames[_random.Next(lastNames.Length)],
+                firstNames[_random.Next(firstNames.Length)], GenerateRandomPhoneNumber());
             
-            _context.UsersList.Add(customer);
+            _randomTestRepo.UsersList.Add(customer);
 
-            Staff staff = new Staff(i + 1001, lastNames[random.Next(lastNames.Length)], firstNames[random.Next(firstNames.Length)], GenerateRandomPhoneNumber());
-            _context.UsersList.Add(staff);
+            var staff = new Staff(i + 1001, lastNames[_random.Next(lastNames.Length)], firstNames[_random.Next(firstNames.Length)], GenerateRandomPhoneNumber());
+            _randomTestRepo.UsersList.Add(staff);
         }
     }
-
     
-    private static long GenerateRandomPhoneNumber()
+    private static int GenerateRandomPhoneNumber()
     {
-        Random random = new Random();
-        long phoneNumber = 0;
-        for (int i = 0; i < 10; i++)
+        var random = new Random();
+        var phoneNumber = 0;
+        for (var i = 0; i < 9; i++)
         {
-            phoneNumber += random.Next(0, 10);
+            // Ensure the first digit is not 0
+            var digit = i == 0 ? random.Next(1, 10) : random.Next(0, 10);
+            phoneNumber = phoneNumber * 10 + digit;
         }
         return phoneNumber;
     }
+    
+    // Generating 10 rentals assuming that there are 10 available books.
+    // Always assigns books in the same order but to random customers
     private void GenerateRentals()
     {
-        for (int i = 0; i < 10; i++)
+        for (var i = 0; i < 10; i++)
         {
-            Customer customer = _context.UsersList.OfType<Customer>().ElementAt(random.Next(_context.UsersList.OfType<Customer>().Count()));
-            Book book = _context.BooksCatalog.books.Values.ElementAt(random.Next(_context.BooksCatalog.books.Count));
+            var customer = _randomTestRepo.UsersList.OfType<Customer>().ElementAt(_random.Next(_randomTestRepo.UsersList.OfType<Customer>().Count()));
+            var book = _randomTestRepo.BooksCatalog.books.Values.ElementAt(i);
 
-            if (book.IsAvailable)
-            {
-                Rental rental = new Rental(Guid.NewGuid(), book, customer, DateTime.Now, DateTime.Now.AddDays(random.Next(1, 30)));
-                _context.RentalsList.Add(rental);
+            if (!book.IsAvailable) continue;
+            var rental = new Rental(Guid.NewGuid(), book, customer, DateTime.Now, DateTime.Now.AddDays(_random.Next(1, 30)));
+            _randomTestRepo.RentalsList.Add(rental);
 
-                book.IsAvailable = false;
-            }
+            book.IsAvailable = false;
         }
     }
 }
-
-

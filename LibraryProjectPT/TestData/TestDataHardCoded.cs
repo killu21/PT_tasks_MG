@@ -1,47 +1,31 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataLayer;
+using DataTest.TestGenerators;
 using DataLayer.Users;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace DataTest;
 
 [TestClass]
-public abstract class TestData
+public class TestDataHardCoded : TestData
 {
-    protected DataRepository TestRepo;
-    protected IData Data;
-    public abstract void Initialize();
-
-    [TestMethod]
-    public void TestGenerateUsers()
+    [TestInitialize]
+    public override void Initialize()
     {
-        Assert.AreEqual(6, TestRepo.UsersList.Count);
-        Assert.AreEqual(3, TestRepo.UsersList.OfType<Customer>().Count());
-        Assert.AreEqual(3, TestRepo.UsersList.OfType<Staff>().Count());
+        IDataGenerator dataGenerator = new HardCodedDataGenerator();
+        TestRepo = dataGenerator.GetTestRepo();
+        Data = new DataLayer.Data(TestRepo);
     }
 
     [TestMethod]
-    public void TestGenerateBooks()
-    {
-        Assert.AreEqual(5, TestRepo.BooksCatalog.books.Count);
-        Assert.IsTrue(TestRepo.BooksCatalog.books.Values.All(book => book.IsAvailable));
-    }
-
-    [TestMethod]
-    public void TestGenerateRentals()
-    {
-        Assert.AreEqual(4, TestRepo.RentalsList.Count);
-        Assert.IsTrue(TestRepo.RentalsList.All(rental => true));
-    }
-    [TestMethod]
-    public void TestGetBookId()
+    public new void TestGetBookId()
     {
         var bookId = Data.GetBookId(1);
         Assert.AreEqual(1, bookId);
     }
 
     [TestMethod]
-    public void TestGetBookTitle()
+    public new void TestGetBookTitle()
     {
         var bookTitle = Data.GetBookTitle(1);
         Assert.AreEqual("Book 1", bookTitle);
@@ -81,7 +65,6 @@ public abstract class TestData
         var userPhone = Data.GetUserPhone(1);
         Assert.AreEqual(123456789, userPhone);
     }
-        
 
     [TestMethod]
     public void TestGetRentedBook()

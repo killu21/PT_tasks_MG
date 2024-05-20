@@ -1,8 +1,7 @@
-using Data;
+using DataLayer;
 
 namespace DataTest;
-
 public interface IDataGenerator
 {
-    public DataRepository GetDataContext();
+    public DataRepository GetTestRepo();
 }

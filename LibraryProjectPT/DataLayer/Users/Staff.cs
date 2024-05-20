@@ -1,4 +1,4 @@
-namespace Data.Users;
+namespace DataLayer.Users;
 public class Staff : User
 {
     public int StaffId { get; set; }
@@ -8,7 +8,4 @@ public class Staff : User
     {
         StaffId = staffId;
     }
-
-    // public int GetStaffId();
-    // public void SetStaffId(int value);
 }

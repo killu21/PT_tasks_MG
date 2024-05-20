@@ -1,4 +1,4 @@
-namespace Data.Inventory;
+namespace DataLayer.Inventory;
 public class Book
 {
     public int BookId { get; }
@@ -13,13 +13,4 @@ public class Book
         Author = author;
         IsAvailable = isAvailable;
     }
-
-    // public int GetBookId();
-    // public string GetTitle();
-    // public string GetAuthor();
-    // public bool GetIsAvailable();
-    // public void SetBookId(int value);
-    // public void SetTitle(string value);
-    // public void SetAuthor(string value);
-    // public void SetIsAvailable(bool value);
 }

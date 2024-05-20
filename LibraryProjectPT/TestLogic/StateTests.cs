@@ -1,5 +1,5 @@
-// using Library.Data;
-// using Library.Logic;
+// using Library.DataLayer;
+// using Library.LogicLayer;
 //
 // namespace LibraryTests.LogicTests
 // {
@@ -10,7 +10,7 @@
 //         private List<IDataInterfaces.IUser> _users;
 //         private List<Rental> _rentals;
 //         private State _state;
-//         private Library.Logic.Library _library;
+//         private Library.LogicLayer.Library _library;
 //         private User _user;
 //         private Book _book;
 //
@@ -20,7 +20,7 @@
 //             _catalog = new Inventory();
 //             _users = new List<IDataInterfaces.IUser>();
 //             _rentals = new List<Rental>();
-//             _library = new Library.Logic.Library(_catalog, _users, _rentals);
+//             _library = new Library.LogicLayer.Library(_catalog, _users, _rentals);
 //             _user = new Customer("Doe", "John", 1234567890,  100);
 //             _book = new Book( "Book1", "Author1", true);
 //             _library.AddUser(_user);

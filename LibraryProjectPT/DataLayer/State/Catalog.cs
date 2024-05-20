@@ -1,6 +1,6 @@
-using Data.Inventory;
+using DataLayer.Inventory;
 
-namespace Data.State;
+namespace DataLayer.State;
 public class Catalog
 {
     public Dictionary<int, Book> books;

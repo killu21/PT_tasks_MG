@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
-using Data;
-using Data.Inventory;
-using Data.Users;
+using DataLayer;
+using DataLayer.Inventory;
+using DataLayer.Users;
 
 namespace Logic;
 

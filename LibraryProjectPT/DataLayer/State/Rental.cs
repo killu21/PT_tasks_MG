@@ -1,21 +1,20 @@
 using System.Text;
-using Data.Inventory;
-using Data.Users;
+using DataLayer.Inventory;
+using DataLayer.Users;
 
-namespace Data.State;
+namespace DataLayer.State;
 public class Rental
 {
-    public Guid RentalId { get; init; }
-    public Book RentedBook { get; set; }
-    public Customer RentedBy { get; set; }
-    public DateTime RentalDate { get; set; }
-    public DateTime DueDate { get; set; }
-
-    private DateTime _rentalDate;
-    private DateTime _dueDate;
+    public Guid RentalId { get; }
+    public Book RentedBook { get; }
+    public Customer RentedBy { get; }
+    public DateTime RentalDate { get; }
+    public DateTime DueDate { get; }
+    private readonly DateTime _rentalDate;
+    private readonly DateTime _dueDate;
 
     public Rental(Guid rentalId, Book rentedBook, Customer rentedBy, DateTime rentalDate, DateTime dueDate)
-    {
+    {   // Remove rentalDate from constructor parameters and in body do _rentalDate = DateTime.Now
         RentalId = rentalId;
         RentedBook = rentedBook;
         RentedBy = rentedBy;
@@ -42,12 +41,4 @@ public class Rental
 
         return stringBuilder.ToString();
     }
-
-    // public int GetRentalId();
-    // public Book GetRentedBook();
-    // public Customer GetRentedBy();
-    // public DateTime GetRentalDate();
-    // public DateTime GetDueDate();
-    // public bool IsOverdue();
-    // public string RentalToString();
 }

@@ -1,8 +1,8 @@
-using Data.Inventory;
-using Data.Users;
-using Data.State;
+using DataLayer.Inventory;
+using DataLayer.Users;
+using DataLayer.State;
 
-namespace Data;
+namespace DataLayer;
 public class Data : IData
 {
     private readonly DataRepository _repository;
@@ -18,9 +18,9 @@ public class Data : IData
     }
     
     // ------------------- Books ------------------- //
-    public int GetBookId(int dictionaryKey)
+    public int GetBookId(int bookId)     // bookId is actually the bookId so this method is redundant
     {
-        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
+        if (_repository.BooksCatalog.books.TryGetValue(bookId, out var book))
         {
             return book.BookId;
         }
@@ -28,9 +28,9 @@ public class Data : IData
         throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
     }
 
-    public string GetBookTitle(int dictionaryKey)
+    public string GetBookTitle(int bookId)
     {
-        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
+        if (_repository.BooksCatalog.books.TryGetValue(bookId, out var book))
         {
             return book.Title;
         }
@@ -38,9 +38,9 @@ public class Data : IData
         throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
     }
 
-    public string GetBookAuthor(int dictionaryKey)
+    public string GetBookAuthor(int bookId)
     {
-        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
+        if (_repository.BooksCatalog.books.TryGetValue(bookId, out var book))
         {
             return book.Author;
         }
@@ -48,9 +48,9 @@ public class Data : IData
         throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
     }
     
-    public bool GetIsBookAvailable(int dictionaryKey)
+    public bool GetIsBookAvailable(int bookId)
     {
-        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
+        if (_repository.BooksCatalog.books.TryGetValue(bookId, out var book))
         {
             return book.IsAvailable;
         }
@@ -58,9 +58,9 @@ public class Data : IData
         throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
     }
 
-    public void SetIsBookAvailable(int dictionaryKey, bool value)
+    public void SetIsBookAvailable(int bookId, bool value)
     {
-        if (_repository.BooksCatalog.books.TryGetValue(dictionaryKey, out var book))
+        if (_repository.BooksCatalog.books.TryGetValue(bookId, out var book))
         {
             book.IsAvailable = value;
         }
@@ -188,18 +188,18 @@ public class Data : IData
     //     return 0;
     // }
 
-    public int GetCustomerBalance(int id)
-    {
-        foreach (var user in _repository.UsersList)
-        {
-            if (user is Customer customer && customer.CustomerId == id)
-            {
-                return customer.Balance;
-            }
-        }
-
-        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
-    }
+    // public int GetCustomerBalance(int id)
+    // {
+    //     foreach (var user in _repository.UsersList)
+    //     {
+    //         if (user is Customer customer && customer.CustomerId == id)
+    //         {
+    //             return customer.Balance;
+    //         }
+    //     }
+    //
+    //     throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    // }
 
     public void SetCustomerId(int id, int value)
     {
@@ -214,18 +214,18 @@ public class Data : IData
         throw new KeyNotFoundException("The provided ID was not found in the Users list.");
     }
 
-    public void SetCustomerBalance(int id, int value)
-    {
-        foreach (var user in _repository.UsersList)
-        {
-            if (user is Customer customer && customer.CustomerId == id)
-            {
-                customer.Balance = value;
-            }
-        }
-
-        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
-    }
+    // public void SetCustomerBalance(int id, int value)
+    // {
+    //     foreach (var user in _repository.UsersList)
+    //     {
+    //         if (user is Customer customer && customer.CustomerId == id)
+    //         {
+    //             customer.Balance = value;
+    //         }
+    //     }
+    //
+    //     throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    // }
 
     // ------------------- Staff ------------------- //
     // public int GetStaffId() // Maybe search by surname name and phone
@@ -257,9 +257,9 @@ public class Data : IData
         _repository.BooksCatalog.RemoveBookFromCatalog(book);
     }
 
-    public Book GetBookFromCatalog(int dictionaryKey)
+    public Book GetBookFromCatalog(int bookId)
     {
-        return _repository.BooksCatalog.GetBookFromCatalog(dictionaryKey);
+        return _repository.BooksCatalog.GetBookFromCatalog(bookId);
     }
     
     public List<Book> GetAllBooksFromCatalog()

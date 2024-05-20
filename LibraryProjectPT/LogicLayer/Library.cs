@@ -1,7 +1,7 @@
-using Data;
-using Data.Inventory;
-using Data.State;
-using Data.Users;
+using DataLayer;
+using DataLayer.Inventory;
+using DataLayer.State;
+using DataLayer.Users;
 
 namespace Logic
 {
@@ -12,7 +12,7 @@ namespace Logic
 
         public Library(IData? data = default)
         {
-            this.data = data ?? new Data.Data();
+            this.data = data ?? new DataLayer.Data();
         }
         
         public void CheckOutBooks(Customer customer, DateTime dueDate)
