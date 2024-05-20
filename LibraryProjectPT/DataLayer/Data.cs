@@ -73,6 +73,23 @@ public class Data : IData
     // Assuming that the ID is unique:
     // Customers id range from 1 to 1000
     // Staff id range from 1001 to 2000
+    
+    public User GetUser(int userId)
+    {
+        foreach (var user in _repository.UsersList)
+        {
+            if (user is Customer customer && customer.CustomerId == userId)
+            {
+                return customer;
+            }
+            if (user is Staff staff && staff.StaffId == userId)
+            {
+                return staff;
+            }
+        }
+
+        throw new KeyNotFoundException("The provided ID was not found in the Users list.");
+    }
     public string GetUserSurname(int id)
     {
         foreach (var user in _repository.UsersList)
@@ -362,4 +379,8 @@ public class Data : IData
         return _repository.RentalsList;
     }
     
+    public void RemoveRental(Rental rental)
+    {
+        _repository.RentalsList.Remove(rental);
+    }
 }

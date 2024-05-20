@@ -15,6 +15,7 @@ public interface IData
     void SetIsBookAvailable(int dictionaryKey, bool value);
 
     // ------------------- User ------------------- //
+    public User GetUser(int userId);
     string GetUserSurname(int userId);
     void SetUserSurname(int userId, string value);
     string GetUserName(int userId);
@@ -49,4 +50,5 @@ public interface IData
     string RentalToString(Guid rentalId);
     void AddRental(Rental rental);
     public List<Rental> GetRentals();
+    public void RemoveRental(Rental rental);
 }

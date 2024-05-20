@@ -12,6 +12,6 @@ public interface ILibrary
         return new Library(data);
     }
 
-    public void CheckOutBooks(Customer customer, DateTime dueDate);
-    public void RentBook(Book book, Customer customer, DateTime dueDate);
+    public void RentBook(int bookId, int customerId, DateTime dueDate);
+    public void ReturnBook(int bookId);
 }

@@ -1,5 +1,4 @@
 using DataLayer;
-using DataLayer.Inventory;
 using DataLayer.State;
 using DataLayer.Users;
 
@@ -7,59 +6,55 @@ namespace Logic;
 
 public class Library : ILibrary
 {
-    private IData data;
+    private readonly IData _data;
     
-    public Library(IData? data = default)
+    public Library(IData data)
     {
-        this.data = data ?? new DataLayer.Data();
+        _data = data;
     }
-    
-    public void CheckOutBooks(Customer customer, DateTime dueDate)
+
+    public void RentBook(int bookId, int customerId, DateTime dueDate)
     {
-        // Get all books from the catalog
-        var books = data.GetAllBooksFromCatalog();
-
-        // Check if the customer is registered
-        if (!data.GetUsers().Contains(customer))
+        if (_data.GetIsBookAvailable(bookId))
         {
-            throw new InvalidOperationException($"User '{customer.Name}' is not registered with the library.");
-        }
-
-        // Check each book
-        foreach (var book in books)
-        {
-            // Check if the book is available in the library
-            if (!book.IsAvailable)
+            var user = _data.GetUser(customerId);
+            if (user is Customer customer)
             {
-                throw new InvalidOperationException($"Book '{book.Title}' is not available in the library.");
+                var rental = new Rental(Guid.NewGuid(), _data.GetBookFromCatalog(bookId), customer, DateTime.Now, dueDate);
+                _data.SetIsBookAvailable(bookId, false);
+                _data.AddRental(rental);
             }
-
-            // Check if the book is already rented
-            foreach (var rental in data.GetRentals())
+            else
             {
-                if (rental.RentedBook.BookId == book.BookId && !rental.RentedBook.IsAvailable)
-                {
-                    throw new InvalidOperationException($"Book '{book.Title}' is already rented.");
-                }
+                throw new InvalidOperationException("The user is not a customer.");
             }
-        }
-    }
-        
-    public void RentBook(Book book, Customer customer, DateTime dueDate)
-    {
-        // Check if the book is available
-        if (book.IsAvailable)
-        {
-            // Set the book as not available
-            data.SetIsBookAvailable(book.BookId, false);
-
-            // Create a new rental
-            Rental rental = new Rental(Guid.NewGuid() ,book, customer, DateTime.Now, dueDate);
-            data.AddRental(rental);
         }
         else
         {
-            throw new InvalidOperationException($"Book '{book.Title}' is already rented.");
+            throw new InvalidOperationException($"Book '{_data.GetBookTitle(bookId)}' is not available.");
+        }
+    }
+
+    public void ReturnBook(int bookId)
+    {
+        if (!_data.GetIsBookAvailable(bookId))
+        {
+            foreach (var rental in _data.GetRentals())
+            {
+                if (rental.RentedBook.BookId == bookId)
+                {
+                    _data.SetIsBookAvailable(bookId, true);
+                    _data.RemoveRental(rental);
+                }
+                else
+                {
+                    throw new InvalidOperationException($"Book '{_data.GetBookTitle(bookId)}' is not rented.");
+                }
+            }
+        }
+        else
+        {
+            throw new InvalidOperationException($"Book '{_data.GetBookTitle(bookId)}' is already available.");
         }
     }
 }
