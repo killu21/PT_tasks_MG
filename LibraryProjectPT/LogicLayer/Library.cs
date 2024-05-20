@@ -48,7 +48,7 @@ public class Library : ILibrary
                 }
                 else
                 {
-                    throw new InvalidOperationException($"Book '{_data.GetBookTitle(bookId)}' is not rented.");
+                    throw new InvalidOperationException($"Book '{_data.GetBookTitle(bookId)}' has no active rental.");
                 }
             }
         }

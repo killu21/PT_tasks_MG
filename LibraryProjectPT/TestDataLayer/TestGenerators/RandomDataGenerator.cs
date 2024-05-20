@@ -5,7 +5,7 @@ using DataLayer.Users;
 
 namespace TestDataLayer.TestGenerators;
 
-internal class RandomDataGenerator : IDataGenerator
+public class RandomDataGenerator : IDataGenerator
 {
     private readonly Random _random = new(DateTime.Now.Millisecond);
     private readonly DataRepository _randomTestRepo;

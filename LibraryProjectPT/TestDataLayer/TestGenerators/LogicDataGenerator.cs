@@ -1,21 +1,19 @@
 using DataLayer;
 using DataLayer.Inventory;
-using DataLayer.State;
 using DataLayer.Users;
 
 namespace TestDataLayer.TestGenerators;
 
-public class HardCodedDataGenerator : IDataGenerator
+public class LogicDataGenerator : IDataGenerator
 {
     private readonly DataRepository _hardCodedTestRepo;
 
-    public HardCodedDataGenerator()
+    public LogicDataGenerator()
     {
         _hardCodedTestRepo = new DataRepository();
 
         GenerateUsers();
         GenerateBooks();
-        GenerateRentals();
     }
 
     public DataRepository GetTestRepo()
@@ -55,21 +53,6 @@ public class HardCodedDataGenerator : IDataGenerator
         foreach (Book book in books)
         {
             _hardCodedTestRepo.BooksCatalog.AddBookToCatalog(book);
-        }
-    }
-
-    private void GenerateRentals()
-    {
-        List<Rental> rentals = new()
-        {
-            new Rental(Guid.NewGuid(), _hardCodedTestRepo.BooksCatalog.GetBookFromCatalog(1), _hardCodedTestRepo.UsersList[0] as Customer ?? throw new InvalidOperationException(), DateTime.Now, DateTime.Now.AddDays(7)),
-            new Rental(Guid.NewGuid(), _hardCodedTestRepo.BooksCatalog.GetBookFromCatalog(2), _hardCodedTestRepo.UsersList[1] as Customer ?? throw new InvalidOperationException(), DateTime.Now, DateTime.Now.AddDays(4)),
-            new Rental(Guid.NewGuid(), _hardCodedTestRepo.BooksCatalog.GetBookFromCatalog(3), _hardCodedTestRepo.UsersList[2] as Customer ?? throw new InvalidOperationException(), DateTime.Now, DateTime.Now.AddDays(6)), 
-        };
-
-        foreach (Rental rental in rentals)
-        {
-            _hardCodedTestRepo.RentalsList.Add(rental);
         }
     }
 }
