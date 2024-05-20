@@ -1,18 +1,16 @@
 using DataLayer;
 using DataLayer.Users;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace TestDataLayer;
 
-[TestClass]
+[TestFixture]
 public abstract class TestData
 {
     protected DataRepository TestRepo;
     protected IData Data;
     public abstract void Initialize();
 
-    [TestMethod]
+    [Test]
     public void TestGenerateUsers()
     {
         Assert.AreEqual(6, TestRepo.UsersList.Count);
@@ -20,62 +18,62 @@ public abstract class TestData
         Assert.AreEqual(3, TestRepo.UsersList.OfType<Staff>().Count());
     }
 
-    [TestMethod]
+    [Test]
     public void TestGenerateBooks()
     {
         Assert.AreEqual(5, TestRepo.BooksCatalog.books.Count);
         Assert.IsTrue(TestRepo.BooksCatalog.books.Values.All(book => book.IsAvailable));
     }
 
-    [TestMethod]
+    [Test]
     public void TestGenerateRentals()
     {
         Assert.AreEqual(4, TestRepo.RentalsList.Count);
         Assert.IsTrue(TestRepo.RentalsList.All(rental => true));
     }
-    [TestMethod]
+    [Test]
     public void TestGetBookId()
     {
         var bookId = Data.GetBookId(1);
         Assert.AreEqual(1, bookId);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetBookTitle()
     {
         var bookTitle = Data.GetBookTitle(1);
         Assert.AreEqual("Book 1", bookTitle);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetBookAuthor()
     {
         var bookAuthor = Data.GetBookAuthor(1);
         Assert.AreEqual("Author 1", bookAuthor);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetIsBookAvailable()
     {
         var isBookAvailable = Data.GetIsBookAvailable(1);
         Assert.IsTrue(isBookAvailable);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetUserSurname()
     {
         var userSurname = Data.GetUserSurname(1);
         Assert.AreEqual("Smith", userSurname);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetUserName()
     {
         var userName = Data.GetUserName(1);
         Assert.AreEqual("Alice", userName);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetUserPhone()
     {
         var userPhone = Data.GetUserPhone(1);
@@ -83,7 +81,7 @@ public abstract class TestData
     }
         
 
-    [TestMethod]
+    [Test]
     public void TestGetRentedBook()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -91,7 +89,7 @@ public abstract class TestData
         Assert.IsNotNull(rentedBook);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetRentedBy()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -99,7 +97,7 @@ public abstract class TestData
         Assert.IsNotNull(rentedBy);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetRentalDate()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -107,7 +105,7 @@ public abstract class TestData
         Assert.IsNotNull(rentalDate);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetDueDate()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -115,7 +113,7 @@ public abstract class TestData
         Assert.IsNotNull(dueDate);
     }
 
-    [TestMethod]
+    [Test]
     public void TestIsOverdue()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -123,7 +121,7 @@ public abstract class TestData
         Assert.IsFalse(isOverdue);
     }
 
-    [TestMethod]
+    [Test]
     public void TestRentalToString()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;

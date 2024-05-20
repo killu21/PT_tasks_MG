@@ -1,12 +1,11 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestDataLayer.TestGenerators;
 
 namespace TestDataLayer;
 
-[TestClass]
+[TestFixture]
 public class TestDataRandom : TestData
 {
-    [TestInitialize]
+    [SetUp]
     public override void Initialize()
     {
         IDataGenerator dataGenerator = new RandomDataGenerator();

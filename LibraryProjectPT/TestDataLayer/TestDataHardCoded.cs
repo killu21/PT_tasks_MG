@@ -1,13 +1,11 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TestDataLayer.TestGenerators;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace TestDataLayer;
 
-[TestClass]
+[TestFixture]
 public class TestDataHardCoded : TestData
 {
-    [TestInitialize]
+    [SetUp]
     public override void Initialize()
     {
         IDataGenerator dataGenerator = new HardCodedDataGenerator();
@@ -15,56 +13,56 @@ public class TestDataHardCoded : TestData
         Data = new DataLayer.Data(TestRepo);
     }
 
-    [TestMethod]
+    [Test]
     public new void TestGetBookId()
     {
         var bookId = Data.GetBookId(1);
         Assert.AreEqual(1, bookId);
     }
 
-    [TestMethod]
+    [Test]
     public new void TestGetBookTitle()
     {
         var bookTitle = Data.GetBookTitle(1);
         Assert.AreEqual("Book 1", bookTitle);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetBookAuthor()
     {
         var bookAuthor = Data.GetBookAuthor(1);
         Assert.AreEqual("Author 1", bookAuthor);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetIsBookAvailable()
     {
         var isBookAvailable = Data.GetIsBookAvailable(1);
         Assert.IsTrue(isBookAvailable);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetUserSurname()
     {
         var userSurname = Data.GetUserSurname(1);
         Assert.AreEqual("Smith", userSurname);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetUserName()
     {
         var userName = Data.GetUserName(1);
         Assert.AreEqual("Alice", userName);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetUserPhone()
     {
         var userPhone = Data.GetUserPhone(1);
         Assert.AreEqual(123456789, userPhone);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetRentedBook()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -72,7 +70,7 @@ public class TestDataHardCoded : TestData
         Assert.IsNotNull(rentedBook);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetRentedBy()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -80,7 +78,7 @@ public class TestDataHardCoded : TestData
         Assert.IsNotNull(rentedBy);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetRentalDate()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -88,7 +86,7 @@ public class TestDataHardCoded : TestData
         Assert.IsNotNull(rentalDate);
     }
 
-    [TestMethod]
+    [Test]
     public void TestGetDueDate()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -96,7 +94,7 @@ public class TestDataHardCoded : TestData
         Assert.IsNotNull(dueDate);
     }
 
-    [TestMethod]
+    [Test]
     public void TestIsOverdue()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
@@ -104,7 +102,7 @@ public class TestDataHardCoded : TestData
         Assert.IsFalse(isOverdue);
     }
 
-    [TestMethod]
+    [Test]
     public void TestRentalToString()
     {
         var rentalId = TestRepo.RentalsList[0].RentalId;
