@@ -65,7 +65,6 @@ internal class HardCodedDataGenerator : IDataGenerator
             new Rental(Guid.NewGuid(), _hardCodedTestRepo.BooksCatalog.GetBookFromCatalog(1), _hardCodedTestRepo.UsersList[0] as Customer ?? throw new InvalidOperationException(), DateTime.Now, DateTime.Now.AddDays(7)),
             new Rental(Guid.NewGuid(), _hardCodedTestRepo.BooksCatalog.GetBookFromCatalog(2), _hardCodedTestRepo.UsersList[1] as Customer ?? throw new InvalidOperationException(), DateTime.Now, DateTime.Now.AddDays(4)),
             new Rental(Guid.NewGuid(), _hardCodedTestRepo.BooksCatalog.GetBookFromCatalog(3), _hardCodedTestRepo.UsersList[2] as Customer ?? throw new InvalidOperationException(), DateTime.Now, DateTime.Now.AddDays(6)), 
-            new Rental(Guid.NewGuid(), _hardCodedTestRepo.BooksCatalog.GetBookFromCatalog(4), _hardCodedTestRepo.UsersList[3] as Customer ?? throw new InvalidOperationException(), DateTime.Now, DateTime.Now.AddDays(2)),
         };
 
         foreach (Rental rental in rentals)
