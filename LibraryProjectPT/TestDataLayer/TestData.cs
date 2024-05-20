@@ -1,9 +1,9 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataLayer;
 using DataLayer.Users;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace DataTest;
+namespace TestDataLayer;
 
 [TestClass]
 public abstract class TestData

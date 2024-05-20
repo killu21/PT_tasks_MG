@@ -3,6 +3,7 @@ using DataLayer.Inventory;
 using DataLayer.Users;
 
 namespace DataLayer.State;
+
 public class Rental
 {
     public Guid RentalId { get; }

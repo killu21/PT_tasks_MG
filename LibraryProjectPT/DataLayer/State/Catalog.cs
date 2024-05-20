@@ -1,6 +1,7 @@
 using DataLayer.Inventory;
 
 namespace DataLayer.State;
+
 public class Catalog
 {
     public Dictionary<int, Book> books;

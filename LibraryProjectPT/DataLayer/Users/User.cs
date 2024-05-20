@@ -1,4 +1,5 @@
 ﻿namespace DataLayer.Users;
+
 public abstract class User
 {
     public string Surname { get; set; }

@@ -3,7 +3,7 @@ using DataLayer.Inventory;
 using DataLayer.State;
 using DataLayer.Users;
 
-namespace DataTest.TestGenerators;
+namespace TestDataLayer.TestGenerators;
 
 internal class RandomDataGenerator : IDataGenerator
 {

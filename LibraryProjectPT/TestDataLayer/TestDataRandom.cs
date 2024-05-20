@@ -1,8 +1,7 @@
-using DataLayer;
-using DataTest.TestGenerators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TestDataLayer.TestGenerators;
 
-namespace DataTest;
+namespace TestDataLayer;
 
 [TestClass]
 public class TestDataRandom : TestData

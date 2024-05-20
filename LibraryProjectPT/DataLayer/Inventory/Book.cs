@@ -1,4 +1,5 @@
 namespace DataLayer.Inventory;
+
 public class Book
 {
     public int BookId { get; }

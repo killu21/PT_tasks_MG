@@ -1,10 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataLayer;
-using DataTest.TestGenerators;
-using DataLayer.Users;
+using TestDataLayer.TestGenerators;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace DataTest;
+namespace TestDataLayer;
 
 [TestClass]
 public class TestDataHardCoded : TestData

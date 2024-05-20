@@ -1,4 +1,5 @@
 namespace DataLayer.Users;
+
 public class Staff : User
 {
     public int StaffId { get; set; }

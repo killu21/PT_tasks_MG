@@ -3,6 +3,7 @@ using DataLayer.Users;
 using DataLayer.State;
 
 namespace DataLayer;
+
 public class Data : IData
 {
     private readonly DataRepository _repository;
