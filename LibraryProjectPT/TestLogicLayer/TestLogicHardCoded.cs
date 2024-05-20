@@ -23,8 +23,8 @@ public class TestLogicHardCoded
     [Test]
     public void RentBook_WhenBookIsAvailable_ShouldRentBook()
     {
-        int bookId = 1;
-        int customerId = 1;
+        const int bookId = 1;
+        const int customerId = 1;
         var dueDate = DateTime.Now.AddDays(7);
         
        
@@ -32,5 +32,18 @@ public class TestLogicHardCoded
         
         var rentedBook = _data.GetBookFromCatalog(bookId);
         Assert.IsFalse(rentedBook.IsAvailable);
+    }
+    
+    [Test]
+    public void ReturnBook_WhenBookIsRented_ShouldReturnBook()
+    {
+        const int bookId = 1;
+        const int customerId = 1;
+        _library.RentBook(bookId, customerId, DateTime.Now.AddDays(7));
+        
+        _library.ReturnBook(bookId);
+        
+        var returnedBook = _data.GetBookFromCatalog(bookId);
+        Assert.IsTrue(returnedBook.IsAvailable);
     }
 }

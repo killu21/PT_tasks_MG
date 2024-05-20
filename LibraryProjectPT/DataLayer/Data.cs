@@ -65,8 +65,10 @@ public class Data : IData
         {
             book.IsAvailable = value;
         }
-        
-        throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
+        else
+        {
+            throw new KeyNotFoundException("The provided key was not found in the BooksDictionary.");
+        }
     }
     
     // ------------------- User ------------------- //

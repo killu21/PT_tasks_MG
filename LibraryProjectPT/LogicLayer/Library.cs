@@ -39,17 +39,26 @@ public class Library : ILibrary
     {
         if (!_data.GetIsBookAvailable(bookId))
         {
+            Rental rentalToRemove = null;
             foreach (var rental in _data.GetRentals())
             {
                 if (rental.RentedBook.BookId == bookId)
                 {
                     _data.SetIsBookAvailable(bookId, true);
-                    _data.RemoveRental(rental);
+                    rentalToRemove = rental;
                 }
                 else
                 {
                     throw new InvalidOperationException($"Book '{_data.GetBookTitle(bookId)}' has no active rental.");
                 }
+            }
+            if (rentalToRemove != null)
+            {
+                _data.RemoveRental(rentalToRemove);
+            }
+            else
+            {
+                throw new InvalidOperationException($"Book '{_data.GetBookTitle(bookId)}' has no active rental.");
             }
         }
         else
