@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{12479453-F8BA-462B-BDFB-0BC8C6A92C85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{12479453-F8BA-462B-BDFB-0BC8C6A92C85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicLayer", "LogicLayer\LogicLayer.csproj", "{13F6B4E8-93B6-4FEE-8DD5-9950F1EDC953}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{13F6B4E8-93B6-4FEE-8DD5-9950F1EDC953}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataLayer", "TestDataLayer\TestDataLayer.csproj", "{DCE2B508-00FE-46DD-AEA7-5F0090DA797C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestData", "TestData\TestData.csproj", "{DCE2B508-00FE-46DD-AEA7-5F0090DA797C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLogicLayer", "TestLogicLayer\TestLogicLayer.csproj", "{103F4425-BBEE-4C44-80FB-BFA85A71AA88}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{00649B89-DF24-4151-889E-1D0F0CFDFC93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestServices", "TestServices\TestServices.csproj", "{FBD3F7DF-4BBD-4E51-8C06-23CD4BDFC806}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPresentation", "TestPresentation\TestPresentation.csproj", "{AA888745-7361-42B9-8D29-29AA233F480D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,9 +36,17 @@ Global
 		{DCE2B508-00FE-46DD-AEA7-5F0090DA797C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCE2B508-00FE-46DD-AEA7-5F0090DA797C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCE2B508-00FE-46DD-AEA7-5F0090DA797C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{103F4425-BBEE-4C44-80FB-BFA85A71AA88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{103F4425-BBEE-4C44-80FB-BFA85A71AA88}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{103F4425-BBEE-4C44-80FB-BFA85A71AA88}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{103F4425-BBEE-4C44-80FB-BFA85A71AA88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00649B89-DF24-4151-889E-1D0F0CFDFC93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00649B89-DF24-4151-889E-1D0F0CFDFC93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00649B89-DF24-4151-889E-1D0F0CFDFC93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00649B89-DF24-4151-889E-1D0F0CFDFC93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBD3F7DF-4BBD-4E51-8C06-23CD4BDFC806}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBD3F7DF-4BBD-4E51-8C06-23CD4BDFC806}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBD3F7DF-4BBD-4E51-8C06-23CD4BDFC806}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBD3F7DF-4BBD-4E51-8C06-23CD4BDFC806}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA888745-7361-42B9-8D29-29AA233F480D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA888745-7361-42B9-8D29-29AA233F480D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA888745-7361-42B9-8D29-29AA233F480D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA888745-7361-42B9-8D29-29AA233F480D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

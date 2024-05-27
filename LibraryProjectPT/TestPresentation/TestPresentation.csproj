@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
-        <RootNamespace>TestLogicLayer</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -19,13 +19,6 @@
 
     <ItemGroup>
         <Using Include="NUnit.Framework"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\LogicLayer\LogicLayer.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\TestDataLayer\TestDataLayer.csproj" />
     </ItemGroup>
 
 </Project>

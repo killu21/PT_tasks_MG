@@ -5,7 +5,11 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>preview</LangVersion>
-        <RootNamespace>DataLayer</RootNamespace>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="DataAPI\" />
+      <Folder Include="DataImplementation\" />
+    </ItemGroup>
 
 </Project>
