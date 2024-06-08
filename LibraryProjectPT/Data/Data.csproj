@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="DataAPI\" />
-      <Folder Include="DataImplementation\" />
+        <Folder Include="DataAPI\"/>
+        <Folder Include="DataImplementation\"/>
     </ItemGroup>
 
 </Project>

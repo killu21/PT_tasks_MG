@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database Name="Database_Task2_PT" Class="DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo._catalogs" Member="_catalogs">
+    <Type Name="CatalogDTO">
+      <Column Name="Id" Type="System.String" DbType="nvarchar(450) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="nvarchar(max) NOT NULL" CanBeNull="false" />
+      <Column Name="Author" Type="System.String" DbType="nvarchar(max) NOT NULL" CanBeNull="false" />
+      <Association Name="Catalog_State" Member="States" ThisKey="Id" OtherKey="CatalogDTOId" Type="StateDTO" />
+    </Type>
+  </Table>
+  <Table Name="dbo._states" Member="_states">
+    <Type Name="StateDTO">
+      <Column Name="Id" Type="System.String" DbType="nvarchar(450) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="CatalogDTOId" Type="System.String" DbType="nvarchar(450) NOT NULL" CanBeNull="false" />
+      <Column Name="Available" Type="System.Boolean" DbType="bit NOT NULL" CanBeNull="false" />
+      <Association Name="State_Rent" Member="Rents" ThisKey="Id" OtherKey="StateId" Type="RentDTO" />
+      <Association Name="State_Return" Member="Returns" ThisKey="Id" OtherKey="StateId" Type="ReturnDTO" />
+      <Association Name="Catalog_State" Member="Catalog" ThisKey="CatalogDTOId" OtherKey="Id" Type="CatalogDTO" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo._users" Member="_users">
+    <Type Name="UsersDTO">
+      <Column Name="Id" Type="System.String" DbType="nvarchar(450) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="nvarchar(max) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="nvarchar(max) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Rent" Member="Rents" ThisKey="Id" OtherKey="UserId" Type="RentDTO" />
+      <Association Name="User_Return" Member="Returns" ThisKey="Id" OtherKey="UserId" Type="ReturnDTO" />
+    </Type>
+  </Table>
+  <Table Name="dbo._rents" Member="_rents">
+    <Type Name="RentDTO">
+      <Column Name="Id" Type="System.String" DbType="nvarchar(450) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateId" Type="System.String" DbType="nvarchar(450) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="nvarchar(450) NOT NULL" CanBeNull="false" />
+      <Association Name="State_Rent" Member="State" ThisKey="StateId" OtherKey="Id" Type="StateDTO" IsForeignKey="true" />
+      <Association Name="User_Rent" Member="User" ThisKey="UserId" OtherKey="Id" Type="UsersDTO" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo._returns" Member="_returns">
+    <Type Name="ReturnDTO">
+      <Column Name="Id" Type="System.String" DbType="nvarchar(450) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="StateId" Type="System.String" DbType="nvarchar(450) NOT NULL" CanBeNull="false" />
+      <Column Name="UserId" Type="System.String" DbType="nvarchar(450) NOT NULL" CanBeNull="false" />
+      <Association Name="State_Return" Member="State" ThisKey="StateId" OtherKey="Id" Type="StateDTO" IsForeignKey="true" />
+      <Association Name="User_Return" Member="User" ThisKey="UserId" OtherKey="Id" Type="UsersDTO" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

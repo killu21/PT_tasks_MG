@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Model\ModelAPI\" />
-      <Folder Include="ViewModel\" />
-      <Folder Include="View\" />
+        <Folder Include="Model\ModelAPI\"/>
+        <Folder Include="ViewModel\"/>
+        <Folder Include="View\"/>
     </ItemGroup>
 
 </Project>
