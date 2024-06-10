@@ -83,7 +83,7 @@ namespace DataLayerTests
         [TestMethod]
         public async Task EventTests()
         {
-            await _dataRepository.AddUser(20, "John", "Smith");
+            await _dataRepository.AddUser(20, "John", "Grossman");
             await _dataRepository.AddProduct(20, "XYZ", "ABC", 3.99f);
             await _dataRepository.AddState(20, 20, true);
             await _dataRepository.AddEvent(20, 20, 20, "PlaceEvent");
