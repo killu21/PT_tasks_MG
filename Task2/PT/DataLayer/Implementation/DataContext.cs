@@ -13,7 +13,7 @@ namespace DataLayer.Implementation
         private readonly string ConnectionString;
 
 
-
+        
         public async Task AddUser(IUser user)
         {
             using (CoffeeShopDataContext context = new CoffeeShopDataContext(this.ConnectionString))
